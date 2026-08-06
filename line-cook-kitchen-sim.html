@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Line Cook — Kitchen Career Sim</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=IBM+Plex+Mono:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#16233A; --bg2:#0C1526;
+    --panel:#1E3050; --panel2:#27406A;
+    --coral:#FF6B5A; --mustard:#FFC93C; --teal:#3FE1B0; --sky:#5FC6FF; --violet:#B78BFF;
+    --cream:#FFF6EC; --muted:#9FB4D4; --line:rgba(255,246,236,.14);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(circle at 15% 0%, rgba(255,201,60,.12), transparent 42%),
+               radial-gradient(circle at 100% 100%, rgba(95,198,255,.14), transparent 45%),
+               linear-gradient(160deg,var(--bg1),var(--bg2));
+    color:var(--cream); font-family:'Nunito',sans-serif; min-height:100vh;
+    display:flex; justify-content:center; padding:0 0 40px; overflow-x:hidden;
+  }
+  .app{ width:100%; max-width:920px; padding:0 14px; }
+  h1,h2,h3{ font-family:'Fredoka',sans-serif; margin:0; }
+  .screen{ display:none; } .screen.active{ display:block; animation:fade .3s ease; }
+  @keyframes fade{ from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
+
+  .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--teal); display:flex; align-items:center; gap:8px; padding-top:24px;}
+  .eyebrow::before{content:"";width:18px;height:2px;background:var(--teal);}
+  .title{ font-weight:700; font-size:clamp(32px,7.5vw,52px); line-height:1; margin:10px 0 8px;}
+  .title span{color:var(--mustard);}
+  .sub{ color:var(--muted); font-size:15.5px; line-height:1.55; max-width:58ch; margin:0 0 20px;}
+
+  .btn{ font-family:'Fredoka',sans-serif; font-weight:600; font-size:16px; border:none; border-radius:14px;
+    padding:14px 24px; cursor:pointer; background:var(--coral); color:#171020; box-shadow:0 6px 0 #C24A3C; transition:transform .08s;}
+  .btn:active{ transform:translateY(6px); box-shadow:0 0 0 #C24A3C; }
+  .btn.teal{ background:var(--teal); box-shadow:0 6px 0 #1F8C6C;} .btn.teal:active{box-shadow:0 0 0 #1F8C6C;}
+  .btn.ghost{ background:var(--panel2); color:var(--cream); box-shadow:0 6px 0 #16263F;} .btn.ghost:active{box-shadow:0 0 0 #16263F;}
+  .btn:disabled{ opacity:.4; cursor:not-allowed; transform:none!important; }
+
+  .chef-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+  .chef-opt{ background:var(--panel); border:2px solid transparent; border-radius:16px; padding:14px 6px;
+    cursor:pointer; text-align:center; transition:.15s;}
+  .chef-opt:hover{ transform:translateY(-3px);}
+  .chef-opt.sel{ border-color:var(--mustard); background:var(--panel2);}
+  .chef-opt canvas{ display:block; margin:0 auto 6px; }
+  .chef-opt span{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--muted);}
+
+  .card{ background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:18px 20px; margin-bottom:18px;}
+  .card h3{ font-size:16px; margin-bottom:10px; color:var(--mustard);}
+  .recipe{ display:flex; align-items:center; gap:8px; padding:7px 0; border-top:1px solid var(--line); font-size:14px; color:var(--muted);}
+  .recipe:first-of-type{ border-top:none;}
+  .recipe b{ color:var(--cream); }
+  .keycap{ display:inline-block; background:var(--panel2); border:1px solid var(--line); border-bottom-width:3px;
+    border-radius:6px; padding:2px 8px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--cream);}
+
+  /* HUD */
+  #hud{ display:none; flex-wrap:wrap; gap:8px 16px; align-items:center; background:rgba(12,21,38,.9);
+    border:1px solid var(--line); border-radius:14px; padding:10px 14px; margin:16px 0 10px;
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px;}
+  #hud.show{ display:flex; }
+  .hi{ display:flex; gap:5px; color:var(--muted); white-space:nowrap;} .hi b{color:var(--cream);}
+  .hi.rep{color:var(--mustard);} .hi.lvl{color:var(--teal);}
+  .hspace{flex:1;}
+
+  #gameWrap{ position:relative; }
+  canvas#game{ width:100%; height:auto; display:block; border-radius:16px; border:1px solid var(--line);
+    background:#12203A; touch-action:none; }
+
+  /* prep menu */
+  #prepMenu{ position:absolute; left:50%; transform:translateX(-50%); bottom:12px; display:none;
+    background:rgba(12,21,38,.94); border:1px solid var(--mustard); border-radius:14px; padding:10px 12px; gap:8px; z-index:5;}
+  #prepMenu.show{ display:flex; flex-wrap:wrap; justify-content:center;}
+  #prepMenu button{ background:var(--panel2); border:1px solid var(--line); color:var(--cream); border-radius:10px;
+    padding:9px 12px; font-family:'Nunito',sans-serif; font-weight:700; font-size:13.5px; cursor:pointer; white-space:nowrap;}
+  #prepMenu button:hover{ border-color:var(--mustard); }
+
+  /* touch controls */
+  .touchbar{ display:flex; justify-content:space-between; align-items:center; margin-top:12px; gap:12px; }
+  .dpad{ display:grid; grid-template-columns:repeat(3,48px); grid-template-rows:repeat(3,48px); gap:5px;}
+  .dpad button{ background:var(--panel); border:1px solid var(--line); border-radius:10px; color:var(--cream);
+    font-size:17px; cursor:pointer; user-select:none; -webkit-user-select:none; touch-action:none;}
+  .dpad button:active{ background:var(--panel2);}
+  .dpad .empty{ visibility:hidden; }
+  #actionBtn{ width:96px; height:96px; border-radius:50%; background:var(--teal); border:none; color:#0D2A22;
+    font-family:'Fredoka',sans-serif; font-weight:700; font-size:16px; cursor:pointer; box-shadow:0 6px 0 #1F8C6C;
+    touch-action:none; user-select:none;}
+  #actionBtn:active{ transform:translateY(5px); box-shadow:0 0 0 #1F8C6C;}
+
+  /* review */
+  .review-card{ background:linear-gradient(160deg,var(--panel2),var(--panel)); border:2px solid var(--teal);
+    border-radius:20px; padding:26px; margin-bottom:18px;}
+  .review-head{ text-align:center; margin-bottom:18px;}
+  .stars{ font-size:24px; margin:6px 0;}
+  .skill-row{ margin-bottom:14px;}
+  .skill-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:5px;}
+  .skill-name{ font-family:'Fredoka',sans-serif; font-weight:600; font-size:15px;}
+  .skill-grade{ font-family:'IBM Plex Mono',monospace; font-size:13px; }
+  .skill-track{ height:9px; border-radius:5px; background:rgba(255,246,236,.1); overflow:hidden;}
+  .skill-fill{ height:100%; border-radius:5px; width:0; transition:width .9s cubic-bezier(.2,1,.3,1);}
+  .skill-note{ font-size:13px; color:var(--muted); margin-top:6px; line-height:1.5;}
+  .money-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px;}
+  .money-stat{ background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:10px 12px;}
+  .money-stat .l{ font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); text-transform:uppercase;}
+  .money-stat .v{ font-family:'Fredoka',sans-serif; font-weight:700; font-size:18px;}
+  .actions{ display:flex; gap:10px; flex-wrap:wrap;}
+
+  /* promo */
+  #promoModal{ position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center;
+    background:rgba(8,14,26,.82); padding:16px;}
+  #promoModal.show{ display:flex;}
+  .promo-card{ background:linear-gradient(160deg,var(--panel2),var(--panel)); border:2px solid var(--mustard);
+    border-radius:22px; padding:30px; max-width:360px; text-align:center;}
+  .promo-card h2{ color:var(--mustard); font-size:22px; margin:8px 0 6px;}
+  .promo-card p{ color:var(--muted); font-size:14px; line-height:1.5; margin-bottom:18px;}
+  canvas#confetti{ position:fixed; inset:0; pointer-events:none; z-index:70;}
+
+  @media (max-width:560px){
+    .chef-grid{ grid-template-columns:repeat(4,1fr); gap:8px;}
+    .money-row{ grid-template-columns:1fr;}
+    #actionBtn{ width:82px; height:82px; font-size:14px;}
+    .dpad{ grid-template-columns:repeat(3,44px); grid-template-rows:repeat(3,44px);}
+  }
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+
+<div class="app">
+
+  <!-- ============ START ============ -->
+  <div class="screen active" id="screen-start">
+    <div class="eyebrow">A KITCHEN CAREER SIM</div>
+    <h1 class="title">LINE COOK<span>.</span></h1>
+    <p class="sub">Pilot your chef around a working kitchen. Walk to stations, start food cooking, and keep moving while it cooks — the whole job is deciding what to do next. Burn something and you eat the loss. Every shift ends with a real manager review of the skills you actually used.</p>
+
+    <h3 style="margin-bottom:10px;">Pick your chef</h3>
+    <div class="chef-grid" id="chefGrid"></div>
+
+    <div class="card">
+      <h3>How to move</h3>
+      <div class="recipe"><b><span class="keycap">W</span><span class="keycap">A</span><span class="keycap">S</span><span class="keycap">D</span></b> or arrow keys — walk around the kitchen</div>
+      <div class="recipe"><b><span class="keycap">E</span></b> or <span class="keycap">Space</span> — use the station you're standing next to</div>
+      <div class="recipe"><b>On phone?</b> Use the D-pad and the big green button below the kitchen.</div>
+    </div>
+
+    <button class="btn" id="startBtn" disabled>Pick a chef to start →</button>
+  </div>
+
+  <!-- ============ GAME ============ -->
+  <div class="screen" id="screen-game">
+    <div id="hud">
+      <div class="hi lvl" id="hudTitle">Prep Cook</div>
+      <div class="hi">💵 <b id="hudCash">$0</b></div>
+      <div class="hi">💰 <b id="hudTips">$0</b></div>
+      <div class="hi rep">⭐ <b id="hudRep">3.0</b></div>
+      <div class="hi">✨ <b id="hudXp">0</b></div>
+      <div class="hspace"></div>
+      <div class="hi" id="hudShift">Shift 1 · 0/8 served</div>
+    </div>
+
+    <div id="gameWrap">
+      <canvas id="game" width="880" height="560"></canvas>
+      <div id="prepMenu"></div>
+    </div>
+
+    <div class="touchbar">
+      <div class="dpad">
+        <button class="empty"></button><button data-dir="up">▲</button><button class="empty"></button>
+        <button data-dir="left">◀</button><button class="empty"></button><button data-dir="right">▶</button>
+        <button class="empty"></button><button data-dir="down">▼</button><button class="empty"></button>
+      </div>
+      <button id="actionBtn">USE<br>(E)</button>
+    </div>
+  </div>
+
+  <!-- ============ REVIEW ============ -->
+  <div class="screen" id="screen-review">
+    <div class="review-card">
+      <div class="review-head">
+        <div class="eyebrow" style="justify-content:center;padding-top:0;">MANAGER REVIEW</div>
+        <h2 id="reviewTitle" style="margin-top:8px;">Shift 1 complete</h2>
+        <div class="stars" id="reviewStars">⭐⭐⭐</div>
+      </div>
+      <div class="money-row">
+        <div class="money-stat"><div class="l">Sales</div><div class="v" id="rvSales">$0</div></div>
+        <div class="money-stat"><div class="l">Tips</div><div class="v" id="rvTips">$0</div></div>
+        <div class="money-stat"><div class="l">XP</div><div class="v" id="rvXp">0</div></div>
+      </div>
+      <div id="skillList"></div>
+      <div class="skill-note" id="coachNote" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--line);"></div>
+    </div>
+    <div class="actions">
+      <button class="btn teal" id="nextShiftBtn">Start next shift →</button>
+      <button class="btn ghost" onclick="location.reload()">Clock out</button>
+    </div>
+  </div>
+</div>
+
+<div id="promoModal">
+  <div class="promo-card">
+    <div style="font-size:46px;">🎉</div>
+    <h2 id="promoTitle">Promoted!</h2>
+    <p id="promoBody"></p>
+    <button class="btn teal" id="promoBtn">Back to the line →</button>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   LINE COOK — top-down kitchen sim
+   ================================================================ */
+
+/* ---------- items ---------- */
+const ITEMS = {
+  batter:{e:'🥣', n:'Batter',     raw:true,  cooks:'pancake'},
+  patty: {e:'🥩', n:'Raw Patty',  raw:true,  cooks:'burger'},
+  pancake:{e:'🥞', n:'Pancakes'},
+  burger:{e:'🍔', n:'Burger'},
+  fries: {e:'🍟', n:'Fries'},
+  coffee:{e:'☕', n:'Coffee'},
+  salad: {e:'🥗', n:'Salad'},
+  burnt: {e:'⚫', n:'Burnt Food'}
+};
+
+/* menu unlocks by level */
+const MENU_UNLOCK = { pancake:1, coffee:1, salad:2, fries:3, burger:4 };
+const RANKS = ['', 'Prep Cook', 'Line Cook', 'Grill Cook', 'Sous Chef', 'Head Chef'];
+
+const CHEFS = [
+  {apron:'#FF6B5A', skin:'#F2C49B', name:'Rojo'},
+  {apron:'#3FE1B0', skin:'#8B5E3C', name:'Verde'},
+  {apron:'#5FC6FF', skin:'#FFDCB8', name:'Azul'},
+  {apron:'#B78BFF', skin:'#5C3A26', name:'Vela'}
+];
+
+const NAMES = ['Jordan','Casey','Riley','Sam','Taylor','Morgan','Avery','Quinn','Reese','Jamie','Skyler','Drew','Harper','Rowan','Emery','Sage'];
+
+/* ---------- world layout (logical 880x560) ---------- */
+const W = 880, H = 560;
+const PLAY = {x0:44, y0:44, x1:836, y1:388};   // where the chef can walk
+
+const ST = {
+  prep:   {x:70,  y:70,  w:150, h:74, label:'PREP',    icon:'🔪', color:'#3E5A82'},
+  griddle:{x:272, y:70,  w:176, h:74, label:'GRIDDLE', icon:'🔥', color:'#6B3A3A'},
+  fryer:  {x:500, y:70,  w:140, h:74, label:'FRYER',   icon:'🍟', color:'#6B5A2E'},
+  drinks: {x:692, y:70,  w:140, h:74, label:'DRINKS',  icon:'☕', color:'#3A5A55'},
+  trash:  {x:790, y:296, w:56,  h:60, label:'TRASH',   icon:'🗑️', color:'#3A4256'}
+};
+const COUNTER = {x:60, y:396, w:760, h:26};
+
+const GRIDDLE_SLOTS = [
+  {x:ST.griddle.x+46, y:ST.griddle.y+38},
+  {x:ST.griddle.x+130, y:ST.griddle.y+38}
+];
+const FRYER_SLOT = {x:ST.fryer.x+ST.fryer.w/2, y:ST.fryer.y+38};
+
+const CUST_SLOTS = [ {x:225,y:492}, {x:440,y:492}, {x:655,y:492} ];
+
+/* cooking times (seconds) */
+const COOK = { griddle:{done:3.4, burn:9.0}, fryer:{done:3.0, burn:8.0} };
+const PREP_TIME = { batter:1.8, patty:2.2, salad:2.6 };
+const DRINK_TIME = 1.8;
+
+const PRICE = { pancake:7, burger:9, fries:4, coffee:3, salad:6 };
+
+/* ---------- state ---------- */
+let chefStyle = null;
+let cash=0, tips=0, xp=0, level=1, rep=3.0, shift=1;
+const PER_SHIFT = 8;
+
+let chef, keys={}, stations, customers, served, lost, spawnedCount;
+let heldItem=null, action=null, prompt='', prompting=null;
+let running=false, lastT=0, prepMenuOpen=false;
+let stats = null;
+let floats = [];
+
+/* ================= CHEF SELECT ================= */
+const chefGrid = document.getElementById('chefGrid');
+CHEFS.forEach((c,i)=>{
+  const d=document.createElement('div');
+  d.className='chef-opt';
+  const cv=document.createElement('canvas'); cv.width=54; cv.height=62;
+  drawChefSprite(cv.getContext('2d'), 27, 40, c, 1.15, 0);
+  d.appendChild(cv);
+  const s=document.createElement('span'); s.textContent='Chef '+c.name; d.appendChild(s);
+  d.onclick=()=>{
+    document.querySelectorAll('.chef-opt').forEach(o=>o.classList.remove('sel'));
+    d.classList.add('sel'); chefStyle=c;
+    const b=document.getElementById('startBtn'); b.disabled=false; b.textContent='Clock in →';
+  };
+  chefGrid.appendChild(d);
+});
+document.getElementById('startBtn').onclick = ()=>{ if(chefStyle) beginCareer(); };
+
+/* ================= SPRITES ================= */
+function drawChefSprite(g, cx, cy, style, scale, bob){
+  scale = scale||1;
+  g.save(); g.translate(cx, cy+ (bob||0)); g.scale(scale, scale);
+  // shadow
+  g.fillStyle='rgba(0,0,0,.25)'; g.beginPath(); g.ellipse(0,16,13,5,0,0,7); g.fill();
+  // body / apron
+  g.fillStyle=style.apron;
+  roundRect(g,-11,-4,22,20,6); g.fill();
+  // apron highlight
+  g.fillStyle='rgba(255,255,255,.22)'; roundRect(g,-6,2,12,13,4); g.fill();
+  // head
+  g.fillStyle=style.skin; g.beginPath(); g.arc(0,-12,9,0,7); g.fill();
+  // hat
+  g.fillStyle='#FFFDF6';
+  roundRect(g,-9,-22,18,7,3); g.fill();
+  g.beginPath(); g.ellipse(0,-24,10,6.5,0,0,7); g.fill();
+  // eyes
+  g.fillStyle='#2A2030';
+  g.beginPath(); g.arc(-3.2,-12,1.5,0,7); g.fill();
+  g.beginPath(); g.arc(3.2,-12,1.5,0,7); g.fill();
+  g.restore();
+}
+function roundRect(g,x,y,w,h,r){
+  g.beginPath();
+  g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r);
+  g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath();
+}
+
+/* ================= CAREER ================= */
+function beginCareer(){
+  cash=0; tips=0; xp=0; level=1; rep=3.0; shift=1;
+  document.getElementById('hud').classList.add('show');
+  showScreen('screen-game');
+  startShift();
+  if(!running){ running=true; lastT=performance.now(); requestAnimationFrame(loop); }
+}
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startShift(){
+  chef = {x:440, y:300, r:15, spd:186, bob:0, vx:0, vy:0};
+  heldItem=null; action=null; prompt=''; prompting=null; prepMenuOpen=false;
+  hidePrepMenu();
+  stations = {
+    griddle:[null,null],
+    fryer:null
+  };
+  customers = [null,null,null];
+  served=0; lost=0; spawnedCount=0;
+  floats=[];
+  stats = {sales:0, tips:0, xp:0, burnt:0, trashed:0, served:0, lost:0, waitSum:0, waitN:0, perfect:0};
+  for(let i=0;i<Math.min(2,CUST_SLOTS.length);i++) trySpawn();
+  updateHud();
+}
+
+function unlockedDishes(){
+  return Object.keys(MENU_UNLOCK).filter(k=>MENU_UNLOCK[k]<=level);
+}
+
+function trySpawn(){
+  if(spawnedCount >= PER_SHIFT) return;
+  const idx = customers.findIndex(c=>c===null);
+  if(idx<0) return;
+  const dishes = unlockedDishes();
+  const count = 1 + (Math.random() < (level>=3?0.55:0.35) ? 1 : 0) + (level>=4 && Math.random()<0.2 ? 1 : 0);
+  const order=[];
+  for(let i=0;i<count;i++) order.push(dishes[Math.floor(Math.random()*dishes.length)]);
+  const patienceMax = Math.max(24, 46 - (level-1)*4 - (shift-1)*1.5);
+  customers[idx] = {
+    name: NAMES[Math.floor(Math.random()*NAMES.length)],
+    order, remaining:[...order],
+    patience:patienceMax, patienceMax,
+    hue: Math.floor(Math.random()*360),
+    total: order.reduce((s,d)=>s+PRICE[d],0),
+    bob: Math.random()*6
+  };
+  spawnedCount++;
+}
+
+/* ================= INPUT ================= */
+window.addEventListener('keydown', e=>{
+  const k=e.key.toLowerCase();
+  if(['arrowup','arrowdown','arrowleft','arrowright',' '].includes(k)) e.preventDefault();
+  keys[k]=true;
+  if(k==='e'||k===' ') doAction();
+  if(prepMenuOpen && ['1','2','3'].includes(k)){
+    const btns=document.querySelectorAll('#prepMenu button');
+    const b=btns[parseInt(k)-1]; if(b) b.click();
+  }
+});
+window.addEventListener('keyup', e=>{ keys[e.key.toLowerCase()]=false; });
+
+document.querySelectorAll('.dpad button[data-dir]').forEach(b=>{
+  const dir=b.dataset.dir;
+  const map={up:'w',down:'s',left:'a',right:'d'};
+  const on=e=>{ e.preventDefault(); keys[map[dir]]=true; };
+  const off=e=>{ e.preventDefault(); keys[map[dir]]=false; };
+  b.addEventListener('touchstart',on,{passive:false}); b.addEventListener('touchend',off,{passive:false});
+  b.addEventListener('touchcancel',off,{passive:false});
+  b.addEventListener('mousedown',on); b.addEventListener('mouseup',off); b.addEventListener('mouseleave',off);
+});
+const actionBtn=document.getElementById('actionBtn');
+actionBtn.addEventListener('touchstart',e=>{e.preventDefault(); doAction();},{passive:false});
+actionBtn.addEventListener('click',e=>{e.preventDefault(); doAction();});
+
+/* ================= GEOMETRY ================= */
+function distToRect(px,py,r){
+  const dx=Math.max(r.x-px, 0, px-(r.x+r.w));
+  const dy=Math.max(r.y-py, 0, py-(r.y+r.h));
+  return Math.hypot(dx,dy);
+}
+function circleRectResolve(c, r){
+  // push circle out of rect on the shallowest axis
+  const cx=Math.max(r.x, Math.min(c.x, r.x+r.w));
+  const cy=Math.max(r.y, Math.min(c.y, r.y+r.h));
+  const dx=c.x-cx, dy=c.y-cy;
+  const d=Math.hypot(dx,dy);
+  if(d >= c.r) return;
+  if(d>0.0001){
+    c.x = cx + (dx/d)*c.r;
+    c.y = cy + (dy/d)*c.r;
+  } else {
+    c.y = r.y - c.r; // fallback: pop above
+  }
+}
+
+/* ================= UPDATE ================= */
+function loop(t){
+  const dt = Math.min(0.05, (t-lastT)/1000);
+  lastT=t;
+  update(dt);
+  draw();
+  requestAnimationFrame(loop);
+}
+
+function update(dt){
+  if(document.getElementById('screen-game').classList.contains('active')===false) return;
+
+  /* --- action in progress (chopping / pouring) --- */
+  if(action){
+    action.t += dt;
+    if(action.t >= action.dur){
+      heldItem = action.result;
+      addFloat(chef.x, chef.y-40, ITEMS[action.result].e+' ready');
+      action=null; beep(560,.06);
+    }
+  } else {
+    /* --- movement --- */
+    let mx=0,my=0;
+    if(keys['w']||keys['arrowup']) my-=1;
+    if(keys['s']||keys['arrowdown']) my+=1;
+    if(keys['a']||keys['arrowleft']) mx-=1;
+    if(keys['d']||keys['arrowright']) mx+=1;
+    const len=Math.hypot(mx,my);
+    if(len>0){ mx/=len; my/=len; }
+    chef.x += mx*chef.spd*dt;
+    chef.y += my*chef.spd*dt;
+    chef.bob = (len>0) ? chef.bob + dt*11 : 0;
+
+    // bounds
+    chef.x = Math.max(PLAY.x0+chef.r, Math.min(PLAY.x1-chef.r, chef.x));
+    chef.y = Math.max(PLAY.y0+chef.r, Math.min(PLAY.y1-chef.r, chef.y));
+    // station collision
+    Object.values(ST).forEach(r=>circleRectResolve(chef,r));
+  }
+
+  /* --- cooking --- */
+  for(let i=0;i<2;i++){
+    const s=stations.griddle[i];
+    if(s){ s.t+=dt; if(!s.burnt && s.t>=COOK.griddle.burn){ s.burnt=true; stats.burnt++; beep(150,.2); } }
+  }
+  if(stations.fryer){
+    const f=stations.fryer; f.t+=dt;
+    if(!f.burnt && f.t>=COOK.fryer.burn){ f.burnt=true; stats.burnt++; beep(150,.2); }
+  }
+
+  /* --- customers --- */
+  customers.forEach((c,i)=>{
+    if(!c) return;
+    c.patience -= dt;
+    if(c.patience<=0){
+      customers[i]=null;
+      lost++; stats.lost++;
+      rep = clamp(rep-0.35,0,5);
+      addFloat(CUST_SLOTS[i].x, CUST_SLOTS[i].y-60, c.name+' left!');
+      beep(180,.25);
+      updateHud();
+      checkShiftEnd();
+      setTimeout(trySpawn, 900);
+    }
+  });
+
+  /* --- prompt / prep menu --- */
+  updatePrompt();
+
+  /* --- floats --- */
+  floats.forEach(f=>{ f.t+=dt; f.y-=28*dt; });
+  floats = floats.filter(f=>f.t<1.3);
+}
+
+function nearestStation(){
+  let best=null, bd=999;
+  const list = [
+    ['prep', ST.prep],['griddle', ST.griddle],['fryer', ST.fryer],
+    ['drinks', ST.drinks],['trash', ST.trash],['pass', COUNTER]
+  ];
+  list.forEach(([k,r])=>{
+    const d=distToRect(chef.x, chef.y, r);
+    if(d<bd){ bd=d; best=k; }
+  });
+  return bd<=34 ? best : null;
+}
+
+function updatePrompt(){
+  if(action){ prompt=''; prompting=null; hidePrepMenu(); return; }
+  const st = nearestStation();
+  prompting = st;
+  prompt='';
+  if(!st){ hidePrepMenu(); return; }
+
+  if(st==='prep'){
+    if(heldItem){ prompt='Hands full — drop it off first'; hidePrepMenu(); }
+    else { prompt='Choose something to prep'; showPrepMenu(); }
+    return;
+  }
+  hidePrepMenu();
+
+  if(st==='griddle'){
+    if(heldItem && ITEMS[heldItem].cooks){
+      prompt = stations.griddle.includes(null) ? '[E] Put '+ITEMS[heldItem].n+' on the griddle' : 'Griddle is full';
+    } else if(!heldItem){
+      const idx = stations.griddle.findIndex(s=>s && (s.burnt || s.t>=COOK.griddle.done));
+      prompt = idx>-1 ? '[E] Pick up from griddle' : (stations.griddle.some(s=>s) ? 'Still cooking…' : 'Griddle is empty — bring batter or a patty');
+    } else prompt = ITEMS[heldItem].n+" doesn't go on the griddle";
+  }
+  else if(st==='fryer'){
+    if(!heldItem){
+      if(!stations.fryer) prompt='[E] Drop fries in the fryer';
+      else if(stations.fryer.burnt || stations.fryer.t>=COOK.fryer.done) prompt='[E] Pull the basket';
+      else prompt='Fries are frying…';
+    } else prompt='Hands full';
+  }
+  else if(st==='drinks'){
+    prompt = heldItem ? 'Hands full' : '[E] Pour a coffee';
+  }
+  else if(st==='trash'){
+    prompt = heldItem ? '[E] Throw away '+ITEMS[heldItem].n : 'Nothing to throw away';
+  }
+  else if(st==='pass'){
+    if(!heldItem) prompt='Bring finished food here to serve';
+    else if(ITEMS[heldItem].raw || heldItem==='burnt') prompt="You can't serve that";
+    else prompt='[E] Serve '+ITEMS[heldItem].n;
+  }
+}
+
+/* ================= PREP MENU ================= */
+function showPrepMenu(){
+  if(prepMenuOpen) return;
+  prepMenuOpen=true;
+  const m=document.getElementById('prepMenu');
+  const opts=[];
+  opts.push({key:'batter', label:'1 · Mix Batter 🥣'});
+  if(level>=2) opts.push({key:'salad', label:'2 · Toss Salad 🥗'});
+  if(level>=4) opts.push({key:'patty', label:'3 · Form Patty 🥩'});
+  m.innerHTML='';
+  opts.forEach(o=>{
+    const b=document.createElement('button');
+    b.textContent=o.label;
+    b.onclick=()=>startPrep(o.key);
+    m.appendChild(b);
+  });
+  m.classList.add('show');
+}
+function hidePrepMenu(){
+  if(!prepMenuOpen) return;
+  prepMenuOpen=false;
+  document.getElementById('prepMenu').classList.remove('show');
+}
+function startPrep(key){
+  if(action || heldItem) return;
+  action = {t:0, dur:PREP_TIME[key], result:key, label:'Prepping '+ITEMS[key].n};
+  hidePrepMenu();
+  beep(420,.06);
+}
+
+/* ================= ACTION ================= */
+function doAction(){
+  if(!document.getElementById('screen-game').classList.contains('active')) return;
+  if(action) return;
+  const st = prompting;
+  if(!st) return;
+
+  if(st==='griddle'){
+    if(heldItem && ITEMS[heldItem].cooks){
+      const idx = stations.griddle.findIndex(s=>s===null);
+      if(idx>-1){
+        stations.griddle[idx] = {item:heldItem, out:ITEMS[heldItem].cooks, t:0, burnt:false};
+        heldItem=null; beep(500,.06);
+        addFloat(GRIDDLE_SLOTS[idx].x, GRIDDLE_SLOTS[idx].y-24, 'cooking…');
+      }
+    } else if(!heldItem){
+      const idx = stations.griddle.findIndex(s=>s && (s.burnt || s.t>=COOK.griddle.done));
+      if(idx>-1){
+        const s=stations.griddle[idx];
+        heldItem = s.burnt ? 'burnt' : s.out;
+        stations.griddle[idx]=null;
+        beep(s.burnt?200:620,.08);
+      }
+    }
+  }
+  else if(st==='fryer'){
+    if(!heldItem){
+      if(!stations.fryer){ stations.fryer={out:'fries', t:0, burnt:false}; beep(500,.06); }
+      else if(stations.fryer.burnt || stations.fryer.t>=COOK.fryer.done){
+        heldItem = stations.fryer.burnt ? 'burnt' : 'fries';
+        stations.fryer=null;
+        beep(stations.fryer && stations.fryer.burnt?200:620,.08);
+      }
+    }
+  }
+  else if(st==='drinks'){
+    if(!heldItem){ action={t:0, dur:DRINK_TIME, result:'coffee', label:'Pouring coffee'}; beep(420,.06); }
+  }
+  else if(st==='trash'){
+    if(heldItem){
+      if(heldItem!=='burnt') stats.trashed++;
+      addFloat(chef.x, chef.y-40, 'tossed');
+      heldItem=null; beep(240,.08);
+    }
+  }
+  else if(st==='pass'){
+    serveHeld();
+  }
+}
+
+function serveHeld(){
+  if(!heldItem) return;
+  if(ITEMS[heldItem].raw || heldItem==='burnt'){
+    addFloat(chef.x, chef.y-40, "can't serve that"); beep(200,.1); return;
+  }
+  // find the customer who needs it and has waited longest (lowest patience ratio)
+  let bestIdx=-1, bestRatio=2;
+  customers.forEach((c,i)=>{
+    if(c && c.remaining.includes(heldItem)){
+      const ratio = c.patience/c.patienceMax;
+      if(ratio<bestRatio){ bestRatio=ratio; bestIdx=i; }
+    }
+  });
+  if(bestIdx<0){ addFloat(chef.x, chef.y-40, 'nobody ordered that'); beep(220,.1); return; }
+
+  const c = customers[bestIdx];
+  c.remaining.splice(c.remaining.indexOf(heldItem),1);
+  addFloat(CUST_SLOTS[bestIdx].x, CUST_SLOTS[bestIdx].y-70, '✔ '+ITEMS[heldItem].n);
+  heldItem=null;
+  beep(660,.08);
+
+  if(c.remaining.length===0){
+    const ratio = c.patience/c.patienceMax;
+    const tip = Math.round(c.total * 0.25 * (0.4 + ratio) * 10)/10;
+    const gained = 12 + c.order.length*6;
+    cash += c.total; tips += tip; xp += gained;
+    stats.sales += c.total; stats.tips += tip; stats.xp += gained;
+    stats.served++; stats.waitSum += ratio; stats.waitN++;
+    if(ratio>0.5) stats.perfect++;
+    rep = clamp(rep + (ratio>0.35 ? 0.15 : 0.02), 0, 5);
+    served++;
+    customers[bestIdx]=null;
+    addFloat(CUST_SLOTS[bestIdx].x, CUST_SLOTS[bestIdx].y-96, '+$'+(c.total+tip).toFixed(2));
+    beep(820,.12);
+    updateHud();
+    checkLevel();
+    checkShiftEnd();
+    setTimeout(trySpawn, 800);
+  }
+  updateHud();
+}
+
+function checkShiftEnd(){
+  const resolved = served + lost;
+  if(resolved >= PER_SHIFT && customers.every(c=>c===null)) endShift();
+}
+
+/* ================= LEVEL ================= */
+function xpNeeded(l){ return l*130; }
+function checkLevel(){
+  let up=false;
+  while(level<5 && xp>=xpNeeded(level)){ xp-=xpNeeded(level); level++; up=true; }
+  if(up){
+    updateHud();
+    const newly = Object.keys(MENU_UNLOCK).filter(k=>MENU_UNLOCK[k]===level).map(k=>ITEMS[k].n);
+    document.getElementById('promoTitle').textContent = 'Promoted to '+RANKS[level]+'!';
+    document.getElementById('promoBody').textContent = newly.length
+      ? 'The kitchen trusts you with more. New on your menu: '+newly.join(', ')+'.'
+      : 'Management noticed how you run the line.';
+    document.getElementById('promoModal').classList.add('show');
+    burst(120); beep(900,.18);
+  }
+}
+document.getElementById('promoBtn').onclick=()=>document.getElementById('promoModal').classList.remove('show');
+
+/* ================= SHIFT REVIEW ================= */
+function endShift(){
+  const avgWait = stats.waitN ? stats.waitSum/stats.waitN : 0;
+  const total = Math.max(1, stats.served + stats.lost);
+
+  const skills = [
+    {
+      name:'Time Management',
+      score: clamp(Math.round(avgWait*100), 0, 100),
+      color:'#5FC6FF',
+      note:'Measured by how much patience your customers had left when their food landed. Getting the order out early, not just eventually, is what separates "on time" from "just in time."'
+    },
+    {
+      name:'Quality Control',
+      score: clamp(100 - stats.burnt*22, 0, 100),
+      color:'#FFC93C',
+      note: stats.burnt===0
+        ? 'You burned nothing this shift. Checking on work already in progress — not just starting new work — is the habit that keeps this at zero.'
+        : 'You burned '+stats.burnt+' item(s). Things you start still need watching. In any job, unattended work in progress is where quality quietly slips.'
+    },
+    {
+      name:'Multitasking',
+      score: clamp(Math.round((stats.served/PER_SHIFT)*100), 0, 100),
+      color:'#3FE1B0',
+      note:'Based on how many orders you closed out. Real throughput comes from starting the slow thing first and doing quick tasks while it runs, not from hurrying.'
+    },
+    {
+      name:'Customer Service',
+      score: clamp(Math.round((stats.served/total)*100), 0, 100),
+      color:'#FF6B5A',
+      note: stats.lost===0
+        ? 'Nobody walked out. Every customer got acknowledged and served.'
+        : stats.lost+' customer(s) gave up and left. When you can\'t get to someone fast, the cost is rarely just that one order.'
+    },
+    {
+      name:'Reducing Waste',
+      score: clamp(100 - (stats.burnt+stats.trashed)*18, 0, 100),
+      color:'#B78BFF',
+      note:'Every burnt or tossed item was food your employer paid for. Waste is one of the few things an entry-level employee controls directly — and managers notice.'
+    }
+  ];
+
+  const avgScore = skills.reduce((s,k)=>s+k.score,0)/skills.length;
+  const stars = clamp(Math.round(avgScore/20), 1, 5);
+
+  document.getElementById('reviewTitle').textContent = RANKS[level]+' · Shift '+shift+' complete';
+  document.getElementById('reviewStars').textContent = '⭐'.repeat(stars)+'☆'.repeat(5-stars);
+  document.getElementById('rvSales').textContent = '$'+stats.sales.toFixed(2);
+  document.getElementById('rvTips').textContent = '$'+stats.tips.toFixed(2);
+  document.getElementById('rvXp').textContent = stats.xp;
+
+  const list=document.getElementById('skillList');
+  list.innerHTML='';
+  skills.forEach((k,i)=>{
+    const grade = k.score>=85?'Strong':k.score>=65?'Solid':k.score>=45?'Developing':'Needs work';
+    const row=document.createElement('div');
+    row.className='skill-row';
+    row.innerHTML=`
+      <div class="skill-top"><span class="skill-name">${k.name}</span>
+        <span class="skill-grade" style="color:${k.color}">${grade} · ${k.score}</span></div>
+      <div class="skill-track"><div class="skill-fill" style="background:${k.color}"></div></div>
+      <div class="skill-note">${k.note}</div>`;
+    list.appendChild(row);
+    setTimeout(()=>{ row.querySelector('.skill-fill').style.width=k.score+'%'; }, 120+i*90);
+  });
+
+  const weakest = skills.reduce((a,b)=>a.score<=b.score?a:b);
+  document.getElementById('coachNote').innerHTML =
+    `<b style="color:var(--cream)">Your manager's note:</b> the thing to work on next shift is <b style="color:${weakest.color}">${weakest.name.toLowerCase()}</b>. Pick one concrete change and run the next shift around it — that's how skill actually builds, at a griddle or at a desk.`;
+
+  showScreen('screen-review');
+  burst(70);
+}
+
+document.getElementById('nextShiftBtn').onclick=()=>{
+  shift++;
+  showScreen('screen-game');
+  startShift();
+};
+
+/* ================= HUD ================= */
+function updateHud(){
+  document.getElementById('hudTitle').textContent = RANKS[level];
+  document.getElementById('hudCash').textContent = '$'+cash.toFixed(2);
+  document.getElementById('hudTips').textContent = '$'+tips.toFixed(2);
+  document.getElementById('hudRep').textContent = rep.toFixed(1);
+  document.getElementById('hudXp').textContent = xp+'/'+xpNeeded(level);
+  document.getElementById('hudShift').textContent = 'Shift '+shift+' · '+served+'/'+PER_SHIFT+' served';
+}
+
+/* ================= DRAW ================= */
+const cvs=document.getElementById('game'), g=cvs.getContext('2d');
+
+function draw(){
+  g.clearRect(0,0,W,H);
+
+  /* floor */
+  g.fillStyle='#14243F'; g.fillRect(0,0,W,H);
+  // tile pattern
+  g.fillStyle='rgba(255,255,255,.022)';
+  for(let y=44;y<392;y+=44) for(let x=44;x<836;x+=44){
+    if(((x/44)+(y/44))%2===0) g.fillRect(x,y,44,44);
+  }
+  // dining floor
+  g.fillStyle='#101B30'; g.fillRect(0,392,W,H-392);
+  g.fillStyle='rgba(255,255,255,.02)';
+  for(let x=0;x<W;x+=52) g.fillRect(x,430,26,H-430);
+
+  /* walls */
+  g.strokeStyle='rgba(255,246,236,.10)'; g.lineWidth=3;
+  g.strokeRect(PLAY.x0-3, PLAY.y0-3, (PLAY.x1-PLAY.x0)+6, (PLAY.y1-PLAY.y0)+6);
+
+  /* stations */
+  drawStation(ST.prep);
+  drawStation(ST.griddle);
+  drawStation(ST.fryer);
+  drawStation(ST.drinks);
+  drawStation(ST.trash);
+
+  /* griddle contents */
+  stations.griddle.forEach((s,i)=>{
+    if(!s) return;
+    const p=GRIDDLE_SLOTS[i];
+    drawCooking(p.x, p.y, s, COOK.griddle);
+  });
+  if(stations.fryer) drawCooking(FRYER_SLOT.x, FRYER_SLOT.y, stations.fryer, COOK.fryer);
+
+  /* counter */
+  g.fillStyle='#8A6A46'; roundRect(g, COUNTER.x, COUNTER.y, COUNTER.w, COUNTER.h, 6); g.fill();
+  g.fillStyle='rgba(255,255,255,.16)'; g.fillRect(COUNTER.x, COUNTER.y, COUNTER.w, 5);
+  g.fillStyle='rgba(255,246,236,.5)'; g.font='600 11px IBM Plex Mono, monospace'; g.textAlign='center';
+  g.fillText('— SERVE HERE —', COUNTER.x+COUNTER.w/2, COUNTER.y+18);
+
+  /* customers */
+  customers.forEach((c,i)=>{ if(c) drawCustomer(c, CUST_SLOTS[i]); });
+
+  /* chef */
+  const bob = Math.sin(chef.bob)*2;
+  drawChefSprite(g, chef.x, chef.y, chefStyle||CHEFS[0], 1.35, bob);
+
+  /* held item */
+  if(heldItem){
+    g.font='22px serif'; g.textAlign='center';
+    g.fillText(ITEMS[heldItem].e, chef.x, chef.y-44+bob);
+  }
+
+  /* action ring */
+  if(action){
+    const pct = action.t/action.dur;
+    g.strokeStyle='rgba(0,0,0,.4)'; g.lineWidth=5;
+    g.beginPath(); g.arc(chef.x, chef.y-52, 16, 0, Math.PI*2); g.stroke();
+    g.strokeStyle='#FFC93C';
+    g.beginPath(); g.arc(chef.x, chef.y-52, 16, -Math.PI/2, -Math.PI/2 + pct*Math.PI*2); g.stroke();
+    g.fillStyle='#FFF6EC'; g.font='600 11px IBM Plex Mono, monospace'; g.textAlign='center';
+    g.fillText(action.label, chef.x, chef.y-76);
+  }
+
+  /* prompt */
+  if(prompt && !action){
+    g.font='700 13px Nunito, sans-serif'; g.textAlign='center';
+    const w=g.measureText(prompt).width+22;
+    g.fillStyle='rgba(8,14,26,.85)';
+    roundRect(g, chef.x-w/2, chef.y+22, w, 24, 8); g.fill();
+    g.fillStyle='#FFF6EC';
+    g.fillText(prompt, chef.x, chef.y+38);
+  }
+
+  /* floats */
+  floats.forEach(f=>{
+    g.globalAlpha = Math.max(0, 1-f.t/1.3);
+    g.fillStyle='#FFC93C'; g.font='700 13px IBM Plex Mono, monospace'; g.textAlign='center';
+    g.fillText(f.text, f.x, f.y);
+    g.globalAlpha=1;
+  });
+}
+
+function drawStation(r){
+  g.fillStyle='rgba(0,0,0,.28)'; roundRect(g, r.x+3, r.y+5, r.w, r.h, 10); g.fill();
+  g.fillStyle=r.color; roundRect(g, r.x, r.y, r.w, r.h, 10); g.fill();
+  g.fillStyle='rgba(255,255,255,.14)'; roundRect(g, r.x, r.y, r.w, 8, 6); g.fill();
+  g.strokeStyle='rgba(255,246,236,.18)'; g.lineWidth=2; roundRect(g, r.x, r.y, r.w, r.h, 10); g.stroke();
+  g.textAlign='center';
+  g.font='16px serif'; g.fillText(r.icon, r.x+r.w/2, r.y+r.h-8);
+  g.fillStyle='rgba(255,246,236,.72)'; g.font='700 10.5px IBM Plex Mono, monospace';
+  g.fillText(r.label, r.x+r.w/2, r.y+20);
+}
+
+function drawCooking(x,y,s,times){
+  const done = s.t>=times.done;
+  g.fillStyle = s.burnt ? '#2B2B2B' : done ? '#FFC93C' : 'rgba(255,246,236,.25)';
+  g.beginPath(); g.arc(x,y,17,0,7); g.fill();
+  g.font='18px serif'; g.textAlign='center';
+  g.fillText(s.burnt?'⚫':ITEMS[s.out].e, x, y+6);
+  // progress ring
+  if(!s.burnt){
+    const pct = Math.min(1, s.t/times.done);
+    g.strokeStyle = done ? '#3FE1B0' : '#FFC93C'; g.lineWidth=3.5;
+    g.beginPath(); g.arc(x,y,22,-Math.PI/2, -Math.PI/2 + pct*Math.PI*2); g.stroke();
+    if(done){
+      // burn warning ring
+      const bpct = Math.min(1, (s.t-times.done)/(times.burn-times.done));
+      g.strokeStyle='rgba(255,107,90,'+(0.35+bpct*0.65)+')'; g.lineWidth=3;
+      g.beginPath(); g.arc(x,y,27,-Math.PI/2, -Math.PI/2 + bpct*Math.PI*2); g.stroke();
+    }
+  } else {
+    g.fillStyle='rgba(120,120,120,.6)'; g.font='13px serif';
+    g.fillText('💨', x+14, y-14);
+  }
+}
+
+function drawCustomer(c, p){
+  const bob = Math.sin(performance.now()/380 + c.bob)*1.6;
+  // body
+  g.fillStyle='rgba(0,0,0,.25)'; g.beginPath(); g.ellipse(p.x, p.y+22, 15, 5, 0,0,7); g.fill();
+  g.fillStyle='hsl('+c.hue+',48%,54%)';
+  roundRect(g, p.x-12, p.y-2+bob, 24, 24, 7); g.fill();
+  g.fillStyle='hsl('+c.hue+',30%,78%)';
+  g.beginPath(); g.arc(p.x, p.y-12+bob, 10, 0, 7); g.fill();
+  g.fillStyle='#2A2030';
+  g.beginPath(); g.arc(p.x-3.4, p.y-13+bob, 1.6,0,7); g.fill();
+  g.beginPath(); g.arc(p.x+3.4, p.y-13+bob, 1.6,0,7); g.fill();
+  // mouth reflects patience
+  const ratio = c.patience/c.patienceMax;
+  g.strokeStyle='#2A2030'; g.lineWidth=1.6; g.beginPath();
+  if(ratio>0.5) g.arc(p.x, p.y-9+bob, 4, 0.2, Math.PI-0.2);
+  else if(ratio>0.25){ g.moveTo(p.x-4, p.y-7+bob); g.lineTo(p.x+4, p.y-7+bob); }
+  else g.arc(p.x, p.y-4+bob, 4, Math.PI+0.2, -0.2);
+  g.stroke();
+
+  // order bubble
+  const items = c.remaining;
+  const bw = Math.max(46, items.length*30 + 16);
+  const bx = p.x - bw/2, by = p.y - 66;
+  g.fillStyle='rgba(255,246,236,.95)';
+  roundRect(g, bx, by, bw, 34, 9); g.fill();
+  g.beginPath(); g.moveTo(p.x-6, by+34); g.lineTo(p.x+6, by+34); g.lineTo(p.x, by+42); g.closePath(); g.fill();
+  g.font='19px serif'; g.textAlign='center';
+  items.forEach((it,i)=>{
+    g.fillText(ITEMS[it].e, bx+16+i*30, by+24);
+  });
+  if(items.length===0){
+    g.fillStyle='#2A8C6C'; g.font='700 13px Nunito'; g.fillText('thanks!', p.x, by+23);
+  }
+
+  // patience bar
+  g.fillStyle='rgba(255,246,236,.15)'; roundRect(g, p.x-26, p.y+30, 52, 7, 4); g.fill();
+  g.fillStyle = ratio>0.5 ? '#3FE1B0' : ratio>0.25 ? '#FFC93C' : '#FF6B5A';
+  roundRect(g, p.x-26, p.y+30, 52*Math.max(0,ratio), 7, 4); g.fill();
+
+  // name
+  g.fillStyle='rgba(255,246,236,.55)'; g.font='600 10px IBM Plex Mono, monospace'; g.textAlign='center';
+  g.fillText(c.name, p.x, p.y+50);
+}
+
+/* ================= FX ================= */
+function addFloat(x,y,text){ floats.push({x,y,text,t:0}); }
+function clamp(v,a,b){ return Math.max(a, Math.min(b,v)); }
+
+let actx;
+function beep(f=520,d=.08){
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    const o=actx.createOscillator(), gn=actx.createGain();
+    o.frequency.value=f; o.type='triangle';
+    gn.gain.setValueAtTime(.05, actx.currentTime);
+    gn.gain.exponentialRampToValueAtTime(.001, actx.currentTime+d);
+    o.connect(gn); gn.connect(actx.destination); o.start(); o.stop(actx.currentTime+d);
+  }catch(e){}
+}
+
+const conf=document.getElementById('confetti'), cctx=conf.getContext('2d');
+function sizeConf(){ conf.width=innerWidth; conf.height=innerHeight; }
+addEventListener('resize', sizeConf); sizeConf();
+let parts=[], animating=false;
+const CCOL=['#FF6B5A','#FFC93C','#3FE1B0','#5FC6FF','#B78BFF'];
+function burst(n=90){
+  for(let i=0;i<n;i++) parts.push({
+    x:conf.width/2+(Math.random()-.5)*140, y:conf.height*.3,
+    vx:(Math.random()-.5)*10, vy:Math.random()*-9-3, gg:.28,
+    s:5+Math.random()*5, c:CCOL[(Math.random()*CCOL.length)|0],
+    rot:Math.random()*360, vr:(Math.random()-.5)*10, life:100+Math.random()*40
+  });
+  if(!animating){ animating=true; animConf(); }
+}
+function animConf(){
+  cctx.clearRect(0,0,conf.width,conf.height);
+  parts.forEach(p=>{
+    p.vy+=p.gg; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.life--;
+    cctx.save(); cctx.translate(p.x,p.y); cctx.rotate(p.rot*Math.PI/180);
+    cctx.fillStyle=p.c; cctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6); cctx.restore();
+  });
+  parts=parts.filter(p=>p.life>0 && p.y<conf.height+50);
+  if(parts.length) requestAnimationFrame(animConf);
+  else { animating=false; cctx.clearRect(0,0,conf.width,conf.height); }
+}
+</script>
+</body>
+</html>
