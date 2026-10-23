@@ -305,6 +305,10 @@ td:first-child{font-weight:700;white-space:nowrap}
 .sgby{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:14px;color:var(--muted);font-weight:600}
 .aidisc{font-size:12px;color:var(--muted);margin:24px 0 0}
 .mbox.wide{width:min(760px,100%);max-height:calc(100vh - 32px);overflow:auto}
+.qtop{display:flex;align-items:center;justify-content:space-between}
+.qtop .mh{margin:0}
+.qbot{display:flex;align-items:center;justify-content:space-between;margin-top:16px}
+.qbot .iconbtn[aria-pressed="true"]{color:var(--hard)}
 .mq{font-size:20px;font-weight:600;line-height:1.4;margin:0 0 4px}
 .mprog{height:6px;border-radius:3px;background:var(--card);overflow:hidden;margin-bottom:16px}
 .mprog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
@@ -339,6 +343,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     <symbol id="i-games" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M9 7a2 2 0 1 1-4 0 2 2 0 0 1 4 0m2 0a4 4 0 1 1-8 0 4 4 0 0 1 8 0m2.5-2.5a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1zm-9 9a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1zm8.96-.194a1.01 1.01 0 0 1 1.448 0L17 15.441l2.092-2.135a1.01 1.01 0 0 1 1.448 0c.4.408.4 1.07 0 1.478l-2.092 2.134 2.252 2.298c.4.408.4 1.07 0 1.478a1.01 1.01 0 0 1-1.448 0L17 18.396l-2.252 2.298a1.01 1.01 0 0 1-1.448 0 1.06 1.06 0 0 1 0-1.478l2.252-2.298-2.091-2.134a1.06 1.06 0 0 1 0-1.478Z"/></symbol>
     <symbol id="i-test" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.285 4.303 5.167 8.45 3.715 7.29A.95.95 0 0 0 3 7a.95.95 0 0 0-.715.29 1 1 0 0 0-.281.736q0 .447.28.736l2.194 1.923a.967.967 0 0 0 1.43 0l4.807-4.883q.282-.315.281-.737 0-.42-.28-.736A1 1 0 0 0 10 4.001a.92.92 0 0 0-.715.302M21 9q.424 0 .713-.287A.97.97 0 0 0 22 8a.97.97 0 0 0-.287-.713A.97.97 0 0 0 21 7h-7a.97.97 0 0 0-.712.287A.97.97 0 0 0 13 8q0 .424.288.713Q13.575 9 14 9zm0 9q.424 0 .713-.288A.97.97 0 0 0 22 17a.97.97 0 0 0-.287-.712A.97.97 0 0 0 21 16h-7a.97.97 0 0 0-.712.288A.97.97 0 0 0 13 17q0 .424.288.712.287.288.712.288zm-15.833-.55 4.118-4.147A.92.92 0 0 1 10 13q.409.014.715.33.282.315.281.735t-.28.737l-4.808 4.883a.967.967 0 0 1-1.43 0l-2.193-1.923a1 1 0 0 1-.281-.736q0-.447.28-.736A.95.95 0 0 1 3 16q.435 0 .715.29z"/></symbol>
     <symbol id="i-book" viewBox="0 0 24 24"><path d="M7.5 22a3.37 3.37 0 0 1-2.475-1.025A3.37 3.37 0 0 1 4 18.5v-13q0-1.45 1.025-2.475A3.37 3.37 0 0 1 7.5 2H18q.824 0 1.413.587Q20 3.176 20 4v12.025q0 .4-.2.725a1.33 1.33 0 0 1-.55.5 1.3 1.3 0 0 0-.55.512q-.2.338-.2.738t.2.75.55.5q.325.124.538.375a.9.9 0 0 1 .212.6v.25q0 .425-.288.725-.287.3-.712.3zM6 15.325q.35-.175.725-.25T7.5 15H18V4H7.5q-.625 0-1.062.438A1.45 1.45 0 0 0 6 5.5zM7.5 20h9.325q-.15-.35-.238-.712a3.4 3.4 0 0 1-.087-.788q0-.4.075-.775t.25-.725H7.5q-.65 0-1.075.438A1.47 1.47 0 0 0 6 18.5q0 .65.425 1.075T7.5 20"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6.133 14.588v6.353q0 .45-.306.755a1.04 1.04 0 0 1-.76.304q-.454 0-.76-.304A1.02 1.02 0 0 1 4 20.94V5.06q0-.45.307-.755Q4.613 4 5.067 4h7.653q.373 0 .667.238.293.239.373.61l.267 1.27h4.906q.454 0 .76.304.307.304.307.754v8.471q0 .45-.307.754a1.04 1.04 0 0 1-.76.305h-5.52q-.373 0-.666-.238a1.05 1.05 0 0 1-.374-.61l-.266-1.27zm8.16 0h3.574V8.235h-4.72q-.374 0-.667-.238a1.05 1.05 0 0 1-.373-.609l-.267-1.27H6.133v6.353h6.854q.373 0 .666.238.293.239.374.609z"/></symbol>
     <symbol id="i-friends" viewBox="0 0 32 32"><path d="M15.333 2.667c2.774 0 5.216.816 7.36 2.447q3.213 2.447 4.179 6.375l1.743 6.876q.167.6-.214 1.088c-.255.326-.65.547-1.068.547h-2.666l-.042 4.134q0 1.038-.738 1.777a2.42 2.42 0 0 1-1.777.74h-3.443V28c0 .346-.088.753-.334 1-.246.245-.65.333-.997.333-.346 0-.757-.088-1.003-.334S16 28.347 16 28v-2.666c0-.347.087-.754.333-1S16.99 24 17.336 24H22v-5.316c0-.347.087-.771.333-1.017s.654-.333 1-.333h2.38l-1.256-5.208q-.77-3.07-3.319-5.006c-1.699-1.292-3.621-1.786-5.805-1.786h-.667V2.667z"/><path d="M11.359 5.114C9.216 3.483 6.774 2.667 4 2.667v2.667c2.184 0 4.106.494 5.805 1.786q2.548 1.937 3.32 5.006l1.256 5.208H12c-.347 0-.754.087-1 .333s-.333.67-.333 1.017V24H6.003c-.346 0-.757.088-1.003.334s-.333.653-.333 1V28c0 .347.087.754.333 1s.657.334 1.003.334c.347 0 .751-.088.997-.334s.333-.653.333-1v-1.35h3.444q1.038 0 1.776-.739a2.42 2.42 0 0 0 .739-1.777L13.333 20H16c.419 0 .813-.221 1.068-.547q.382-.488.214-1.088L15.54 11.49q-.966-3.928-4.18-6.375"/><circle cx="4" cy="4" r="1.333"/><circle cx="9.333" cy="13.333" r="1.333"/><circle cx="21.333" cy="13.333" r="1.333"/><circle cx="14.667" cy="4" r="1.333"/></symbol>
     <symbol id="i-live" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.534 4.31a.99.99 0 0 1-.057 1.35C4.842 7.231 3.818 9.49 3.818 12s1.024 4.768 2.66 6.34a.99.99 0 0 1 .056 1.35.88.88 0 0 1-1.284.06C3.254 17.83 2 15.068 2 12s1.254-5.83 3.25-7.75a.88.88 0 0 1 1.284.06m10.932 0a.88.88 0 0 1 1.284-.06C20.746 6.17 22 8.933 22 12s-1.254 5.83-3.25 7.75a.88.88 0 0 1-1.284-.06.99.99 0 0 1 .056-1.35c1.636-1.572 2.66-3.83 2.66-6.34s-1.024-4.768-2.66-6.34a.99.99 0 0 1-.056-1.35M8.669 6.567a.99.99 0 0 1-.03 1.35C7.636 8.922 7 10.375 7 12s.636 3.078 1.64 4.084a.99.99 0 0 1 .03 1.35.88.88 0 0 1-1.286.031c-1.357-1.36-2.202-3.31-2.202-5.465s.845-4.105 2.202-5.465a.88.88 0 0 1 1.285.032m6.662 0a.88.88 0 0 1 1.285-.032c1.358 1.36 2.202 3.31 2.202 5.465 0 2.156-.844 4.105-2.202 5.465a.88.88 0 0 1-1.285-.032.99.99 0 0 1 .03-1.35c1.004-1.005 1.64-2.458 1.64-4.083s-.636-3.078-1.64-4.083a.99.99 0 0 1-.03-1.35m-3.33 3.523c-1.005 0-1.82.855-1.82 1.91s.815 1.91 1.82 1.91c1.003 0 1.817-.855 1.817-1.91s-.814-1.91-1.818-1.91M8.363 12c0-2.11 1.628-3.82 3.636-3.82s3.637 1.71 3.637 3.82-1.629 3.82-3.637 3.82S8.364 14.11 8.364 12"/></symbol>
     <symbol id="i-folder" viewBox="0 0 24 24"><path d="m9 5 2 2h9v12H4V5zm1-2H4C2.9 3 2.01 4.013 2.01 5.25L2 18.75C2 19.988 2.9 21 4 21h16c1.1 0 2-1.012 2-2.25V7.5c0-1.237-.9-2.5-2-2.5h-8z"/></symbol>
@@ -782,7 +787,7 @@ function mcq(i,dir){
   var correct=TERMS[i][dir?0:1],ds=[],seen={};seen[correct]=1;
   shuffle(TERMS.map(function(_,j){return j})).forEach(function(j){var t=TERMS[j][dir?0:1];if(ds.length<3&&!seen[t]){seen[t]=1;ds.push(t)}});
   var o=shuffle(ds.concat([correct]));
-  return {i:i,prompt:TERMS[i][dir?1:0],label:dir?'Which term matches this definition?':'Choose the matching definition',options:o,answer:o.indexOf(correct),correct:correct};
+  return {i:i,prompt:TERMS[i][dir?1:0],side:dir?'Definition':'Term',label:'Choose an answer',options:o,answer:o.indexOf(correct),correct:correct};
 }
 function tfq(i){
   var truth=Math.random()<.5,j=i;
@@ -790,8 +795,13 @@ function tfq(i){
   return {i:i,prompt:TERMS[i][0]+' — “'+TERMS[j][1]+'”',label:'True or false: this is the correct definition',options:['True','False'],answer:truth?0:1,correct:truth?'True':'False (correct: '+TERMS[i][1]+')'};
 }
 function renderQ(q,onDone){
-  var wrap=el('div'),p=el('p','mq',q.prompt);wrap.appendChild(el('div','diff',q.label));wrap.appendChild(p);
-  var g=el('div','lopts');g.style.marginTop='12px';
+  var wrap=el('div'),p=el('p','mq',q.prompt);
+  if(q.side){
+    var top=el('div','qtop');top.appendChild(el('span','mh',q.side));
+    var snd=iconBtn('i-audio','Audio','sm');snd.onclick=function(){speak(q.prompt)};top.appendChild(snd);wrap.appendChild(top);
+  }
+  wrap.appendChild(p);wrap.appendChild(el('div','mh',q.label));
+  var g=el('div','lopts');
   var answered=false,fb=el('div','mfeed');
   q.options.forEach(function(t,n){
     var b=el('button','lopt');b.type='button';b.appendChild(el('span','n',String(n+1)));b.appendChild(el('span',null,t));
@@ -805,9 +815,12 @@ function renderQ(q,onDone){
     g.appendChild(b);
   });
   wrap.appendChild(g);
-  var dk=el('button','btn t','Don\'t know?');dk.type='button';dk.style.marginTop='8px';
+  var bot=el('div','qbot'),flag=iconBtn('i-flag','Flag','sm');flag.setAttribute('aria-pressed','false');
+  flag.onclick=function(){flag.setAttribute('aria-pressed',String(flag.getAttribute('aria-pressed')!=='true'))};
+  var dk=el('button','btn t','Don\'t know?');dk.type='button';
   dk.onclick=function(){if(!answered)g.children[(q.answer+1)%q.options.length].click()};
-  wrap.appendChild(dk);wrap.appendChild(fb);return wrap;
+  bot.appendChild(flag);bot.appendChild(dk);
+  wrap.appendChild(bot);wrap.appendChild(fb);return wrap;
 }
 function openQuiz(kind,from){
   openModal(kind==='learn'?'Learn':'Test',from);
