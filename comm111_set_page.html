@@ -294,6 +294,10 @@ td:first-child{font-weight:700;white-space:nowrap}
 .tcols .d .jhead,.tcols .d .jside{font-size:10px}
 .empty{padding:24px;text-align:center;color:var(--muted);font-weight:600}
 
+.alsoh{font-size:22px;margin:40px 0 12px}
+.alsoh+.sgcard{margin-top:0}
+.hidehint{margin:0 0 12px;font-size:13px;font-weight:600;color:var(--muted)}
+.hidehint[hidden]{display:none}
 .sgcard{display:flex;gap:16px;align-items:center;background:var(--card);border-radius:16px;padding:16px 20px;margin-top:32px}
 .sgcard:hover{background:var(--card2)}
 .sgico{width:40px;height:40px}
@@ -499,9 +503,11 @@ td:first-child{font-weight:700;white-space:nowrap}
         </div>
       </div>
     </div>
+    <p class="hidehint" id="hideHint" hidden>You can also click the terms or definitions to blur or reveal them</p>
     <div id="termList" data-testid="terms-list"></div>
   </section>
 
+  <h2 class="alsoh">Students also studied</h2>
   <a class="sgcard" href="comm111_quizlet_style.html">
     <svg class="sgico"><use href="#i-sparkle"/></svg>
     <div><div class="sgt">COMM 111 Exam 2: Identity, Perception, Relationships &amp; Groups <span class="pill">Study guide</span></div><div class="sgby"><span class="avatar sm-av" aria-hidden="true">K</span>Katiewillnotcrashout</div></div>
@@ -756,7 +762,7 @@ function starBtn(i){
       if(b)b.setAttribute('aria-pressed',String(isStar(i)));
     });
   });
-  var sw=$('#hideSw');sw.onclick=function(){hide=!hide;sw.setAttribute('aria-checked',String(hide));draw()};
+  var sw=$('#hideSw');sw.onclick=function(){hide=!hide;sw.setAttribute('aria-checked',String(hide));$('#hideHint').hidden=!hide;draw()};
   var sb=$('#sortBtn'),sm=$('#sortMenu');
   sb.onclick=function(e){e.stopPropagation();var o=sm.hidden;sm.hidden=!o;sb.setAttribute('aria-expanded',String(o))};
   document.addEventListener('click',function(e){if(!sm.hidden&&!sm.contains(e.target)){sm.hidden=true;sb.setAttribute('aria-expanded','false')}});
