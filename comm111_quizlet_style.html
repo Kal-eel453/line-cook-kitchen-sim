@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COMM 111 Exam 2: Identity, Perception, Relationships &amp; Groups Study Guide</title>
+<style>
+:root{
+  --bg:#ffffff; --side:#f6f7fb; --card:#f6f7fb; --card2:#edeff5; --line:#d9dde8;
+  --text:#282e3e; --muted:#586380; --accent:#4255ff; --accent-ink:#fff; --accent-soft:#e3e6ff;
+  --yellow:#ffcd1f; --lilac:#9900be; --lilac-soft:#f1dcff; --sky:#0d7cb8; --sky-soft:#d9f1ff;
+  --sherbert:#a75500; --sherbert-soft:#ffe6c7; --mint:#0b7a57; --mint-soft:#d3f5e8; --input:#edeff5;
+  --hard:#c23b4d; --med:#a76b00;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a092d; --side:#0a092d; --card:#2e3856; --card2:#3b4668; --line:#2e3856;
+    --text:#f6f7fb; --muted:#939bb4; --accent:#a8b1ff; --accent-ink:#0a092d; --accent-soft:#1f1c8b;
+    --lilac:#d58bff; --lilac-soft:#3a2563; --sky:#7fd0ff; --sky-soft:#0f3a57;
+    --sherbert:#ffb870; --sherbert-soft:#4a3016; --mint:#72e0b8; --mint-soft:#10402f; --input:#2e3856;
+    --hard:#ff7873; --med:#ffcd1f;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a092d; --side:#0a092d; --card:#2e3856; --card2:#3b4668; --line:#2e3856;
+  --text:#f6f7fb; --muted:#939bb4; --accent:#a8b1ff; --accent-ink:#0a092d; --accent-soft:#1f1c8b;
+  --lilac:#d58bff; --lilac-soft:#3a2563; --sky:#7fd0ff; --sky-soft:#0f3a57;
+  --sherbert:#ffb870; --sherbert-soft:#4a3016; --mint:#72e0b8; --mint-soft:#10402f; --input:#2e3856;
+  --hard:#ff7873; --med:#ffcd1f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:100%/1.625 hurme_no2-webfont,-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+a{color:inherit;text-decoration:none}
+svg{width:24px;height:24px;fill:currentColor;flex:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+
+/* ---- header ---- */
+header.nav{position:sticky;top:0;z-index:1098;height:64px;background:var(--bg);display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid var(--line)}
+.iconbtn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center}
+.iconbtn:hover{background:var(--card)}
+.logo{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:var(--accent)}
+.logo svg{width:32px;height:32px}
+.search{flex:1;max-width:520px;margin:0 auto 0 8px;position:relative}
+.search input{width:100%;height:40px;border:2px solid transparent;border-radius:8px;background:var(--input);color:var(--text);padding:0 12px 0 40px;font:inherit}
+.search input::placeholder{color:var(--muted)}
+.search input:focus{outline:0;border-color:var(--yellow)}
+.search svg{position:absolute;left:10px;top:8px;width:24px;height:24px;color:var(--muted)}
+.nbtn{height:40px;padding:0 16px;border-radius:999px;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.nbtn:hover{background:var(--card)}
+.nbtn.upg{background:var(--yellow);color:#282e3e}
+.nbtn.upg:hover{background:#ffdc62}
+.fab{background:var(--accent);color:var(--accent-ink);width:40px;height:40px;border-radius:50%;display:grid;place-items:center}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--lilac);color:var(--bg);font-weight:700;display:grid;place-items:center}
+.sm-av{width:24px;height:24px;font-size:12px}
+
+/* ---- layout ---- */
+.shell{display:flex}
+aside.side{width:240px;flex:none;position:sticky;top:64px;height:calc(100vh - 64px);overflow:auto;padding:16px 12px;background:var(--side);border-right:1px solid var(--line)}
+aside.side h4{margin:16px 12px 6px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+aside.side hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+.si{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:8px;color:var(--muted);font-weight:600;font-size:15px;width:100%;text-align:left}
+.si:hover{background:var(--card)}
+.si.active{background:var(--accent-soft);color:var(--accent)}
+.si.c-sky{color:var(--sky)}.si.c-lilac{color:var(--lilac)}.si.c-sherbert{color:var(--sherbert)}.si.c-mint{color:var(--mint)}
+.si.c-sky:hover{background:var(--sky-soft)}.si.c-lilac:hover,.si.c-lilac.active{background:var(--lilac-soft)}.si.c-sherbert:hover{background:var(--sherbert-soft)}.si.c-mint:hover{background:var(--mint-soft)}
+.pill{font-size:11px;font-weight:700;border-radius:999px;padding:1px 8px;background:var(--accent-soft);color:var(--accent);margin-left:auto}
+main{flex:1;min-width:0;padding:24px 24px 64px}
+.page{max-width:59.375rem;margin:0 auto}
+@media (max-width:1023px){
+  aside.side{position:fixed;left:0;top:64px;z-index:1097;transform:translateX(-100%);transition:transform .2s;background:var(--bg);visibility:hidden}
+  body.nav-open aside.side{transform:none;visibility:visible;box-shadow:0 8px 32px rgba(0,0,0,.35)}
+  .hide-m{display:none}
+}
+@media (max-width:640px){
+  main{padding:16px 16px 56px}
+  .search{display:none}
+  .nbtn.rec span,.nbtn.upg{display:none}
+}
+
+/* ---- sticky title ---- */
+.head{display:grid;grid-template-columns:1fr auto;grid-template-areas:"title actions" "meta meta";column-gap:16px}
+.head h1.title{grid-area:title}.head .actions{grid-area:actions}.head .meta{grid-area:meta}
+@media (max-width:640px){.head{grid-template-columns:1fr;grid-template-areas:"title" "meta" "actions"}.head .actions{margin:8px 0 0 -8px}}
+h1.title{margin:0;font-size:clamp(26px,4vw,36px);line-height:1.2;letter-spacing:-.02em;font-weight:700}
+.actions{display:flex;gap:2px;flex:none}
+.meta{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:12px;color:var(--muted);font-size:14px;font-weight:600}
+.meta .by{display:flex;gap:8px;align-items:center;color:var(--text)}
+.meta svg{width:20px;height:20px;vertical-align:-4px;margin-right:4px}
+
+/* ---- tabs ---- */
+.tabs{display:flex;gap:4px;margin:24px 0 0;border-bottom:2px solid var(--line)}
+.tab{padding:10px 16px;font-weight:700;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;border-radius:8px 8px 0 0}
+.tab:hover{color:var(--text);background:var(--card)}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.panel{padding-top:24px}
+.panel[hidden]{display:none}
+
+/* ---- notes content ---- */
+.notes h1{font-size:28px;line-height:1.25;margin:40px 0 4px;letter-spacing:-.01em;scroll-margin-top:84px}
+.notes h1:first-child{margin-top:0}
+.notes h3{font-size:19px;margin:22px 0 6px;font-weight:700}
+.notes ul,.notes ol,.qr ul{margin:0 0 6px;padding-left:24px}
+.notes li,.qr li{margin:4px 0;line-height:1.55}
+.notes ul ul{margin:2px 0}
+.notes strong,.qr strong{font-weight:700}
+.figure{position:relative;margin:16px 0 8px;max-width:560px}
+.figure .fs{position:absolute;right:8px;top:8px;width:32px;height:32px;border-radius:50%;background:rgba(10,9,45,.55);color:#fff;display:grid;place-items:center;z-index:2}
+.figure .fs svg{width:18px}
+.johari{border-radius:12px;overflow:hidden;background:var(--card);padding:16px}
+.jgrid{display:grid;grid-template-columns:28px 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:4px}
+.jhead{font-size:12px;font-weight:700;color:var(--muted);text-align:center;align-self:end;padding-bottom:2px}
+.jside{writing-mode:vertical-rl;transform:rotate(180deg);font-size:12px;font-weight:700;color:var(--muted);text-align:center;display:grid;place-items:center}
+.jcell{border-radius:8px;padding:12px;min-height:92px}
+.jcell b{display:block;font-size:15px}.jcell span{font-size:13px;color:var(--muted)}
+.j1{background:var(--accent-soft)}.j2{background:rgba(255,205,31,.22)}.j3{background:var(--lilac-soft)}.j4{background:var(--card2)}
+.figcap{font-size:13px;color:var(--muted);margin-top:8px}
+
+/* ---- quick reference ---- */
+.qr section{margin-bottom:28px}
+.qr h2{font-size:22px;margin:0 0 10px;font-weight:700}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{padding:12px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:var(--card);font-size:13px;font-weight:700;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:700;white-space:nowrap}
+@media(max-width:640px){td:first-child{white-space:normal}}
+
+/* ---- discussion questions ---- */
+.dq{margin-top:48px}
+.dq h1{font-size:28px;margin:0 0 16px;letter-spacing:-.01em}
+.dq-head{display:flex;align-items:center;gap:4px;margin-bottom:12px;color:var(--muted);font-weight:700;font-size:14px}
+.dq-card{background:var(--card);border-radius:16px;padding:24px;min-height:150px}
+.dq-q{font-size:20px;font-weight:600;line-height:1.4;margin:0 0 6px}
+.diff{font-size:13px;font-weight:700;color:var(--muted)}
+.diff.hard{color:var(--hard)}.diff.medium{color:var(--med)}
+.btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:999px;font-weight:700;font-size:15px}
+.btn.t{color:var(--accent)}.btn.t:hover{background:var(--accent-soft)}
+.btn.p{background:var(--accent);color:var(--accent-ink)}.btn.p:hover{filter:brightness(1.1)}
+.btn.o{border:2px solid var(--line)}.btn.o:hover{background:var(--card)}
+.btn.block{width:100%;justify-content:center}
+.btn svg{width:20px;height:20px}
+.ans{background:var(--card2);border-radius:12px;padding:16px 20px;margin-top:14px;line-height:1.6}
+.ans[hidden]{display:none}
+.rate{display:flex;gap:4px;margin-top:8px}
+.rate button:disabled{opacity:.35;cursor:default}
+.dq-list{display:none}
+@media (max-width:767px){
+  .dq-desk{display:none}.dq-list{display:grid;gap:12px}
+  .dq-list .dq-card{padding:20px}
+  .dq-list .n{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:6px}
+}
+.disc{font-size:12px;color:var(--muted);margin:24px 0}
+
+.study h2{font-size:22px;margin:32px 0 12px}
+.studybtns{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;max-width:560px}
+.studybtns .btn{border:2px solid var(--line);height:48px;justify-content:flex-start}
+.studybtns .btn:hover{background:var(--card)}
+.studybtns svg{width:28px;height:28px}
+
+.cta{margin-top:40px;background:var(--card);border-radius:16px;padding:24px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.cta .l{display:flex;align-items:center;gap:16px;font-size:20px;font-weight:700}
+.cta .l svg{width:40px;height:40px;color:var(--lilac)}
+
+/* ---- review bar (small screens) ---- */
+.reviewbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:1090;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line)}
+.btn.lg{height:48px;font-size:16px}
+.rmenu{position:absolute;left:16px;right:16px;bottom:calc(100% - 4px);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.rmenu[hidden]{display:none}
+@media (max-width:767px){.reviewbar{display:block}main{padding-bottom:104px}}
+@media print{.reviewbar{display:none}}
+
+/* ---- modal ---- */
+.modal{position:fixed;inset:0;z-index:1200;background:rgba(10,9,45,.88);display:grid;place-items:center;padding:16px}
+.modal[hidden]{display:none}
+.mbox{width:min(720px,100%);background:var(--bg);border-radius:20px;padding:20px;border:1px solid var(--line)}
+.mtop{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;font-weight:700}
+.fc{perspective:1200px;width:100%;height:320px;display:block;padding:0}
+.fci{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.fc.flip .fci{transform:rotateY(180deg)}
+.fcf{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;background:var(--card);display:grid;place-items:center;padding:32px;text-align:center;font-size:24px;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.2)}
+.fcf.b{transform:rotateY(180deg);background:var(--card2);font-size:20px;font-weight:500}
+.fcctl{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:16px}
+.fccount{min-width:70px;text-align:center;color:var(--muted);font-weight:700}
+.hint{text-align:center;color:var(--muted);font-size:13px;margin-top:8px}
+@media (prefers-reduced-motion:reduce){.fci,aside.side{transition:none}html{scroll-behavior:auto}}
+@media print{header.nav,aside.side,.tabs,.dq-head,.cta,.studybtns{display:none}.panel[hidden]{display:block}body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.111 19H20.89c.61 0 1.11-.358 1.11-1s-.5-1-1.111-1H3.11C2.5 17 2 17.358 2 18s.5 1 1.111 1m0-6H20.89c.61 0 1.11-.358 1.11-1s-.5-1-1.111-1H3.11C2.5 11 2 11.358 2 12s.5 1 1.111 1M2 6c0 .642.5 1 1.111 1H20.89C21.5 7 22 6.642 22 6s-.5-1-1.111-1H3.11C2.5 5 2 5.358 2 6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.25 15.5a5.25 5.25 0 1 0 0-10.5 5.25 5.25 0 0 0 0 10.5m5.563-.6a7.25 7.25 0 1 0-1.483 1.345l4.463 4.462a1 1 0 0 0 1.414-1.414z"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M20 13h-7v7c0 .619-.381 1-1 1s-1-.381-1-1v-7H4c-.619 0-1-.381-1-1s.381-1 1-1h7V4c0-.619.381-1 1-1s1 .381 1 1v7h7c.619 0 1 .381 1 1s-.381 1-1 1"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M5.813 18.943h3.093V13.8q0-.437.297-.733a1 1 0 0 1 .735-.296h4.124a1 1 0 0 1 .735.296 1 1 0 0 1 .297.733v5.143h3.094V9.686L12 5.057 5.813 9.686zm-2.063 0V9.686a2.04 2.04 0 0 1 .825-1.646l6.187-4.629A2 2 0 0 1 12 3q.696 0 1.238.411l6.187 4.629q.387.284.606.72.219.437.219.926v9.257q0 .849-.606 1.453T18.188 21h-4.125a1 1 0 0 1-.735-.296 1 1 0 0 1-.297-.733V14.83H10.97v5.142a1 1 0 0 1-.297.733 1 1 0 0 1-.735.296H5.814a2 2 0 0 1-1.457-.604 1.98 1.98 0 0 1-.606-1.453"/></symbol>
+    <symbol id="i-lib" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M5 3.5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h11.681c.858 0 1.62-.55 1.89-1.367l2.325-7c.43-1.296-.53-2.633-1.89-2.633H18.5V8a2 2 0 0 0-2-2h-4.18L9.343 3.873A2 2 0 0 0 8.18 3.5zm11.5 6V8h-4.18a2 2 0 0 1-1.162-.373L8.18 5.5H5v10.673l1.762-5.305A1.99 1.99 0 0 1 8.652 9.5zm-10.172 9H16.68l2.325-7H8.652z"/></symbol>
+    <symbol id="i-groups" viewBox="0 0 24 24"><path d="M0 18v-1.575q0-1.075 1.1-1.75T4 14q.325 0 .625.012.3.014.575.063-.35.525-.525 1.1a4.1 4.1 0 0 0-.175 1.2V18zm6 0v-1.625q0-.799.438-1.463.437-.662 1.237-1.162.799-.5 1.913-.75 1.112-.25 2.412-.25 1.325 0 2.438.25 1.112.25 1.912.75t1.225 1.162.425 1.463V18zm13.5 0v-1.625q0-.65-.163-1.225a4 4 0 0 0-.487-1.075q.274-.05.563-.062Q19.7 14 20 14q1.8 0 2.9.662 1.1.663 1.1 1.763V18zM8.125 16H15.9q-.25-.5-1.388-.875T12 14.75t-2.512.375T8.125 16M4 13q-.824 0-1.412-.588A1.93 1.93 0 0 1 2 11q0-.85.587-1.425A1.95 1.95 0 0 1 4 9q.85 0 1.425.575T6 11q0 .825-.575 1.412A1.9 1.9 0 0 1 4 13m16 0q-.824 0-1.413-.588A1.93 1.93 0 0 1 18 11q0-.85.587-1.425A1.95 1.95 0 0 1 20 9q.85 0 1.425.575T22 11q0 .825-.575 1.412A1.9 1.9 0 0 1 20 13m-8-1a2.9 2.9 0 0 1-2.125-.875A2.9 2.9 0 0 1 9 9q0-1.275.875-2.137T12 6q1.275 0 2.137.862Q15 7.726 15 9q0 1.25-.863 2.125Q13.276 12 12 12m0-2q.424 0 .713-.287A.97.97 0 0 0 13 9a.97.97 0 0 0-.287-.713A.97.97 0 0 0 12 8a.97.97 0 0 0-.713.287A.97.97 0 0 0 11 9q0 .424.287.713.288.287.713.287"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M12 22c1.238 0 2.5-.872 2.5-2h-5c0 1.128 1.262 2 2.5 2m7-6v-5.282c0-3.149-2.084-5.785-5.312-6.482v-.698C13.688 2.688 12.934 2 12 2s-1.687.687-1.687 1.538v.698C7.095 4.933 5 7.559 5 10.718V16l-1.76 1.67A.771.771 0 0 0 3.771 19H20.23a.771.771 0 0 0 .53-1.33zm-2 1H7v-6.282C7 8.174 9.199 6 12 6s5 2.174 5 4.718z"/></symbol>
+    <symbol id="i-cards" viewBox="0 0 24 24"><path d="m20 5.175.825.4q.776.325 1.05 1.112A2.04 2.04 0 0 1 21.8 8.25l-1.8 3.9zM16 3q.825 0 1.413.6.587.6.587 1.425V11l-2.675-7.35a3 3 0 0 1-.125-.337.9.9 0 0 0-.175-.313zm-5.15.125a2 2 0 0 1 1.55.075q.775.35 1.05 1.125l4.425 12.225q.275.776-.075 1.537a1.9 1.9 0 0 1-1.125 1.038l-7.525 2.75a1.97 1.97 0 0 1-1.537-.075 1.9 1.9 0 0 1-1.038-1.125L2.125 8.45A1.97 1.97 0 0 1 2.2 6.913a1.9 1.9 0 0 1 1.125-1.038zM11.55 5 4 7.75 8.475 20 16 17.25z"/></symbol>
+    <symbol id="i-pod" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.95" d="M18.955 13.056v-2.08a6.976 6.976 0 1 0-13.951 0v2.08"/><path fill="none" stroke="currentColor" stroke-width="1.95" d="M7.652 12.602H6.65a3.525 3.525 0 0 0-3.524 3.525v.286a3.524 3.524 0 0 0 3.524 3.524h1.003c.29 0 .526-.234.526-.524v-6.286a.526.526 0 0 0-.526-.525Zm8.666 0h1.003a3.525 3.525 0 0 1 3.525 3.525v.286a3.524 3.524 0 0 1-3.525 3.524h-1.003a.525.525 0 0 1-.525-.524v-6.286c0-.29.235-.525.525-.525Z"/><path d="M7.576 11.627h.878a1.5 1.5 0 0 1 1.5 1.5v6.286a1.5 1.5 0 0 1-1.5 1.5h-.878zm8.76 0h-.878a1.5 1.5 0 0 0-1.5 1.5v6.286a1.5 1.5 0 0 0 1.5 1.5h.878z"/></symbol>
+    <symbol id="i-guide" viewBox="0 0 24 24"><path d="M7 15a1 1 0 0 1 1-1h8a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1m0-4a1 1 0 0 1 1-1h3a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1m6.29-3.49 2.186 1.014 1.015 2.185q.145.291.511.291t.507-.29l1.015-2.186 2.185-1.015Q21 7.364 21 6.998t-.29-.507l-2.186-1.015-1.015-2.185Q17.364 3 16.998 3t-.507.29l-1.015 2.186-2.185 1.015Q13 6.636 13 7.002t.29.507"/><path fill-rule="evenodd" clip-rule="evenodd" d="M3 6a3 3 0 0 1 3-3h5a1 1 0 1 1 0 2H6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 1 1 2 0v5a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z"/></symbol>
+    <symbol id="i-games" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M9 7a2 2 0 1 1-4 0 2 2 0 0 1 4 0m2 0a4 4 0 1 1-8 0 4 4 0 0 1 8 0m2.5-2.5a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1zm-9 9a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1zm8.96-.194a1.01 1.01 0 0 1 1.448 0L17 15.441l2.092-2.135a1.01 1.01 0 0 1 1.448 0c.4.408.4 1.07 0 1.478l-2.092 2.134 2.252 2.298c.4.408.4 1.07 0 1.478a1.01 1.01 0 0 1-1.448 0L17 18.396l-2.252 2.298a1.01 1.01 0 0 1-1.448 0 1.06 1.06 0 0 1 0-1.478l2.252-2.298-2.091-2.134a1.06 1.06 0 0 1 0-1.478Z"/></symbol>
+    <symbol id="i-test" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.285 4.303 5.167 8.45 3.715 7.29A.95.95 0 0 0 3 7a.95.95 0 0 0-.715.29 1 1 0 0 0-.281.736q0 .447.28.736l2.194 1.923a.967.967 0 0 0 1.43 0l4.807-4.883q.282-.315.281-.737 0-.42-.28-.736A1 1 0 0 0 10 4.001a.92.92 0 0 0-.715.302M21 9q.424 0 .713-.287A.97.97 0 0 0 22 8a.97.97 0 0 0-.287-.713A.97.97 0 0 0 21 7h-7a.97.97 0 0 0-.712.287A.97.97 0 0 0 13 8q0 .424.288.713Q13.575 9 14 9zm0 9q.424 0 .713-.288A.97.97 0 0 0 22 17a.97.97 0 0 0-.287-.712A.97.97 0 0 0 21 16h-7a.97.97 0 0 0-.712.288A.97.97 0 0 0 13 17q0 .424.288.712.287.288.712.288zm-15.833-.55 4.118-4.147A.92.92 0 0 1 10 13q.409.014.715.33.282.315.281.735t-.28.737l-4.808 4.883a.967.967 0 0 1-1.43 0l-2.193-1.923a1 1 0 0 1-.281-.736q0-.447.28-.736A.95.95 0 0 1 3 16q.435 0 .715.29z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M7.5 22a3.37 3.37 0 0 1-2.475-1.025A3.37 3.37 0 0 1 4 18.5v-13q0-1.45 1.025-2.475A3.37 3.37 0 0 1 7.5 2H18q.824 0 1.413.587Q20 3.176 20 4v12.025q0 .4-.2.725a1.33 1.33 0 0 1-.55.5 1.3 1.3 0 0 0-.55.512q-.2.338-.2.738t.2.75.55.5q.325.124.538.375a.9.9 0 0 1 .212.6v.25q0 .425-.288.725-.287.3-.712.3zM6 15.325q.35-.175.725-.25T7.5 15H18V4H7.5q-.625 0-1.062.438A1.45 1.45 0 0 0 6 5.5zM7.5 20h9.325q-.15-.35-.238-.712a3.4 3.4 0 0 1-.087-.788q0-.4.075-.775t.25-.725H7.5q-.65 0-1.075.438A1.47 1.47 0 0 0 6 18.5q0 .65.425 1.075T7.5 20"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="m9 5 2 2h9v12H4V5zm1-2H4C2.9 3 2.01 4.013 2.01 5.25L2 18.75C2 19.988 2.9 21 4 21h16c1.1 0 2-1.012 2-2.25V7.5c0-1.237-.9-2.5-2-2.5h-8z"/></symbol>
+    <symbol id="i-class" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9.500 12c2 0 3.500-1.600 3.500-3.500S11.500 5 9.500 5 6 6.600 6 8.500 7.500 12 9.500 12m0-5.300c1 0 1.800.8 1.800 1.800s-.8 1.700-1.800 1.700-1.800-.8-1.800-1.700.8-1.800 1.800-1.800m8.900 1.800c0 1.900-1.600 3.500-3.600 3.500a4 4 0 0 1-1.200-.2c.8-.9 1.500-1.800 1.500-3.300s-.7-2.400-1.500-3.300q.600-.2 1.200-.2c2 0 3.600 1.600 3.600 3.500M18 16.400c0-1.500-.5-2.600-1.800-3.400 2.500.4 5.800 1.500 5.800 3.400V18a1 1 0 0 1-1 1h-3zm-16 0c0-2.300 5.100-3.400 7.500-3.400S17 14 17 16.400V18a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1zM4 16.500v.5h11v-.5c-.2-.6-3-1.500-5.500-1.500S4.200 15.900 4 16.500"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M17.07 3q.795.001 1.363.566Q19 4.133 19 4.93v14.125q0 1.044-.862 1.615-.862.57-1.828.16L12 18.988l-4.31 1.84q-.966.41-1.828-.16-.861-.571-.862-1.615V4.929q0-.796.567-1.363A1.86 1.86 0 0 1 6.93 3zM6.93 19.041 12 16.855l5.07 2.186V4.929H6.93z"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M6 21q-.824 0-1.412-.587A1.93 1.93 0 0 1 4 19v-9q0-.824.588-1.413A1.93 1.93 0 0 1 6 8h2q.424 0 .713.287Q9 8.575 9 9q0 .424-.287.712A.97.97 0 0 1 8 10H6v9h12v-9h-2a.97.97 0 0 1-.713-.288A.97.97 0 0 1 15 9q0-.424.287-.713A.97.97 0 0 1 16 8h2q.824 0 1.413.587Q20 9.175 20 10v9q0 .824-.587 1.413A1.93 1.93 0 0 1 18 21zm5-16.575L9.7 5.712q-.3.3-.7.288a1 1 0 0 1-.7-.313q-.275-.3-.288-.7a.92.92 0 0 1 .288-.7l3-2.987q.3-.3.7-.3t.7.3l3.013 3a.93.93 0 0 1 .275.687q0 .413-.275.713-.3.3-.713.3a.97.97 0 0 1-.713-.3L13 4.425V14q0 .424-.287.713A.97.97 0 0 1 12 15a.97.97 0 0 1-.713-.287A.97.97 0 0 1 11 14z"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M5 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m14 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m-7 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><path d="M12 21q-3.15 0-5.575-1.913Q4 17.176 3.275 14.2a.74.74 0 0 1 .15-.687.97.97 0 0 1 .675-.363q.4-.05.725.15t.45.6q.6 2.25 2.475 3.675T12 19q2.925 0 4.962-2.038T19 12t-2.038-4.962T12 5a6.75 6.75 0 0 0-3.225.8A7.4 7.4 0 0 0 6.25 8H8q.424 0 .713.287Q9 8.576 9 9t-.287.713A.97.97 0 0 1 8 10H4a.97.97 0 0 1-.712-.287A.97.97 0 0 1 3 9V5q0-.424.288-.713A.97.97 0 0 1 4 4q.424 0 .713.287Q5 4.576 5 5v1.35a8.7 8.7 0 0 1 3.113-2.475A8.9 8.9 0 0 1 12 3q1.874 0 3.512.712a9.2 9.2 0 0 1 2.85 1.926 9.2 9.2 0 0 1 1.926 2.85A8.7 8.7 0 0 1 21 12q0 1.874-.712 3.512a9.2 9.2 0 0 1-1.925 2.85 9.2 9.2 0 0 1-2.85 1.926A8.7 8.7 0 0 1 12 21m1-9.4 2.5 2.5a.95.95 0 0 1 .275.7.95.95 0 0 1-.275.7.95.95 0 0 1-.7.275.95.95 0 0 1-.7-.275l-2.8-2.8a1 1 0 0 1-.225-.337 1 1 0 0 1-.075-.388V8q0-.424.287-.713A.97.97 0 0 1 12 7q.424 0 .713.287Q13 7.576 13 8z"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M15.645 5.366a1.184 1.184 0 0 0-1.713 0l-5.577 5.75a1.275 1.275 0 0 0 0 1.767l5.577 5.75c.473.49 1.239.49 1.713 0a1.275 1.275 0 0 0 0-1.766l-4.714-4.873 4.714-4.861a1.287 1.287 0 0 0 0-1.767"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="m8.355 16.855 4.714-4.861-4.714-4.861a1.275 1.275 0 0 1 0-1.767 1.184 1.184 0 0 1 1.713 0l5.577 5.75a1.275 1.275 0 0 1 0 1.767l-5.577 5.75a1.184 1.184 0 0 1-1.713 0c-.461-.488-.473-1.29 0-1.778"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M12 7c3.174 0 6.036 1.505 7.675 4.161.159.258.325.549.325.839s-.166.581-.325.839C18.035 15.495 15.174 17 12 17s-6.036-1.505-7.675-4.161C4.166 12.58 4 12.29 4 12s.166-.581.325-.839C5.965 8.505 8.826 7 12 7m0-2c-4.342 0-8.086 2.573-9.841 6.293a1.66 1.66 0 0 0 0 1.414C3.914 16.427 7.659 19 12 19c4.342 0 8.087-2.573 9.842-6.293a1.66 1.66 0 0 0 0-1.414C20.087 7.573 16.342 5 12 5m0 5c1.125 0 2 .796 2 2s-.83 2-2 2-2-.78-2-2 .875-2 2-2m0-2c-2.287 0-4 1.685-4 4s1.713 4 4 4 4-1.685 4-4-1.713-4-4-4"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M20.095 8.938q.762 0 1.334.557.57.556.571 1.299v1.855q0 .163-.048.348-.047.186-.095.348L19 19.887q-.215.464-.714.788a1.9 1.9 0 0 1-1.048.325H6.762V8.938l5.714-5.52q.357-.349.845-.406.49-.06.94.174.454.23.668.649.213.417.095.858l-1.072 4.245zm-11.428.789v9.417h8.571l2.857-6.494v-1.856h-8.571L12.81 5.69zM3.905 21q-.786 0-1.345-.545Q2 19.91 2 19.145v-8.351q0-.765.56-1.31a1.86 1.86 0 0 1 1.345-.546h2.857v1.856H3.905v8.35h2.857V21z"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M20.095 15.062q.762 0 1.334-.557.57-.557.571-1.299v-1.855q0-.163-.048-.348a11 11 0 0 0-.095-.348L19 4.113q-.215-.464-.714-.788A1.9 1.9 0 0 0 17.238 3H6.762v12.062l5.714 5.52q.357.349.845.406.49.06.94-.174.454-.23.668-.65.213-.417.095-.857l-1.072-4.245zm-11.428-.789V4.856h8.571l2.857 6.495v1.855h-8.571l1.286 5.103zM3.905 3q-.786 0-1.345.545Q2 4.091 2 4.855v8.351q0 .765.56 1.31.559.546 1.345.546h2.857v-1.856H3.905v-8.35h2.857V3z"/></symbol>
+    <symbol id="i-fs" viewBox="0 0 24 24"><path d="M5.17 18.83h1.873q.551 0 .938.387.387.386.387.939 0 .55-.387.938-.387.386-.938.386H3.845q-.552 0-.939-.386a1.28 1.28 0 0 1-.386-.939v-3.198q0-.55.386-.938.386-.386.939-.386.551 0 .938.386t.387.939zm13.66 0v-1.872q0-.552.387-.939.386-.386.939-.386.55 0 .938.386.386.386.386.939v3.198q0 .55-.386.938-.386.386-.939.386h-3.183q-.552 0-.939-.386a1.28 1.28 0 0 1-.386-.939q0-.551.386-.938t.939-.386zM5.17 5.17v1.858q0 .552-.387.939-.386.386-.938.386t-.939-.386a1.28 1.28 0 0 1-.386-.939V3.845q0-.552.386-.939t.939-.386h3.198q.551 0 .938.386t.387.939q0 .551-.387.938t-.938.387zm13.66 0h-1.858q-.552 0-.939-.387a1.28 1.28 0 0 1-.386-.938q0-.552.386-.939t.939-.386h3.183q.552 0 .939.386t.386.939v3.183q0 .552-.386.939t-.939.386q-.551 0-.938-.386a1.28 1.28 0 0 1-.386-.939z"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.645 4.367a1.21 1.21 0 0 0-1.711 0L12 10.222 6.066 4.355a1.21 1.21 0 0 0-1.711 0 1.21 1.21 0 0 0 0 1.711L10.222 12l-5.867 5.934a1.21 1.21 0 0 0 0 1.711 1.21 1.21 0 0 0 1.711 0L12 13.778l5.934 5.867a1.21 1.21 0 0 0 1.711 0 1.21 1.21 0 0 0 0-1.711L13.778 12l5.867-5.934a1.216 1.216 0 0 0 0-1.699"/></symbol>
+    <symbol id="i-q" viewBox="0 0 24 24"><path d="M12.600 3a9.100 9.100 0 0 0-3.700.5 9 9 0 0 0-3.200 2 8.900 8.900 0 0 0-2.700 6.700c.2 4.700 4 8.500 8.700 8.600a9 9 0 0 0 4.500-1 .25.25 0 0 1 .26 0q.4.250.8.500a7.100 7.100 0 0 0 3.100.7.25.25 0 0 0 .25-.25v-3a.25.25 0 0 0-.2-.25 3.500 3.500 0 0 1-.85-.25.25.25 0 0 1-.1-.35 8.800 8.800 0 0 0 1.500-5.400C20.800 6.900 17.100 3.300 12.600 3M6.600 11.900c0-1.100.3-2.100.9-3a5.400 5.400 0 0 1 2.400-2 5.500 5.500 0 0 1 3.150-.3 5.500 5.500 0 0 1 2.800 1.500 5.400 5.400 0 0 1 1.500 2.750 5.400 5.400 0 0 1-.3 3.100 5.400 5.400 0 0 1-2 2.450 5.500 5.500 0 0 1-6.900-.7 5.400 5.400 0 0 1-1.600-3.800"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 32 32"><path fill="#e372ff" d="M11.055 7.881a4.873 4.873 0 0 1 9.747 0v8.122a4.873 4.873 0 0 1-9.747 0z"/><path fill="#9900be" d="M24.05 14.374c.897 0 1.625.727 1.625 1.625 0 4.828-3.513 8.833-8.122 9.607v.139h1.624a1.625 1.625 0 1 1 0 3.248H12.68a1.625 1.625 0 1 1 0-3.248h1.624v-.139c-4.61-.774-8.121-4.779-8.122-9.607a1.624 1.624 0 1 1 3.248 0 6.497 6.497 0 0 0 6.499 6.496 6.497 6.497 0 0 0 6.498-6.496c0-.897.726-1.625 1.623-1.625"/><path fill="#eaf" d="M11.055 7.877h9.747v3.248h-9.747z"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 32 32"><path fill="#e372ff" d="M5.334 5.333A2.667 2.667 0 0 1 8 2.667h16a2.667 2.667 0 0 1 2.667 2.666v21.334A2.667 2.667 0 0 1 24 29.333H8a2.667 2.667 0 0 1-2.666-2.666z"/><path fill="#4255ff" d="m27.663 9.141-2.611 1a.47.47 0 0 0-.28.28l-1.015 2.6a.493.493 0 0 1-.922 0l-1.002-2.607a.5.5 0 0 0-.28-.286l-2.57-1.014a.494.494 0 0 1 0-.92l2.61-.993a.5.5 0 0 0 .287-.287l1.009-2.6a.5.5 0 0 1 .928 0l.995 2.614a.5.5 0 0 0 .287.28l2.604 1.013a.494.494 0 0 1-.04.92"/><rect width="12" height="2.667" x="12" y="21.333" fill="#fff" rx="1.333"/><circle cx="9.333" cy="22.667" r="1.333" fill="#fff"/><rect width="12" height="2.667" x="12" y="14.667" fill="#fff" rx="1.333"/><circle cx="9.333" cy="16" r="1.333" fill="#fff"/><rect width="9.333" height="2.667" x="8" y="8" fill="#fff" rx="1.333"/></symbol>
+    <symbol id="i-fcbrand" viewBox="0 0 32 32"><path fill="#51cfff" d="M8.155 12.824C8.155 11.264 9.4 10 10.939 10h16.705c1.537 0 2.784 1.265 2.784 2.824v12.351c0 1.56-1.247 2.825-2.785 2.825H10.94c-1.538 0-2.784-1.265-2.784-2.825z"/><path fill="#4255ff" d="M2.428 6.825C2.428 5.265 3.68 4 5.228 4h16.8c1.546 0 2.8 1.265 2.8 2.825v12.35c0 1.56-1.254 2.825-2.8 2.825h-16.8c-1.547 0-2.8-1.265-2.8-2.825z"/></symbol>
+    <symbol id="i-learnbrand" viewBox="0 0 32 32"><path fill="#4255ff" fill-rule="evenodd" clip-rule="evenodd" d="M13.804 5.364c-1.148-1.483-3.346-1.801-4.911-.734-1.159.79-1.666 2.132-1.391 3.387-3.734 3.528-4.67 9.113-1.892 13.63 2.745 4.464 8.253 6.485 13.307 5.298 1.198 1.214 3.19 1.414 4.64.425 1.58-1.078 1.945-3.178.784-4.677-1.148-1.483-3.346-1.801-4.91-.734a3.3 3.3 0 0 0-1.44 2.314c-3.785.793-7.831-.76-9.852-4.046-2.008-3.264-1.428-7.285 1.154-9.948a3.7 3.7 0 0 0 3.727-.238c1.58-1.078 1.944-3.178.784-4.677M10.697 7.04c.2-.136.48-.086.612.084.12.155.091.38-.093.507a.464.464 0 0 1-.612-.084c-.12-.155-.092-.381.093-.507m10.537 17.329c.2-.136.48-.086.612.084.12.155.092.381-.093.507a.464.464 0 0 1-.612-.084c-.12-.155-.092-.381.093-.507"/><path fill="#51cfff" d="M17.068 4.68c-.76-.056-1.455.478-1.518 1.234-.063.759.539 1.391 1.3 1.447q.736.054 1.454.218c.74.168 1.512-.255 1.701-.987.191-.74-.297-1.459-1.043-1.629a13 13 0 0 0-1.894-.283m6.527 2.407c-.605-.452-1.485-.361-1.972.214a1.3 1.3 0 0 0 .228 1.902q.574.429 1.069.94a1.464 1.464 0 0 0 1.982.092A1.3 1.3 0 0 0 25 8.323a11.6 11.6 0 0 0-1.405-1.236m3.972 5.463c-.236-.717-1.031-1.094-1.76-.883-.735.213-1.175.962-.936 1.688q.216.659.317 1.338c.11.75.835 1.244 1.59 1.146.757-.098 1.319-.765 1.208-1.519a10.6 10.6 0 0 0-.419-1.77m-.932 4.899c-.73-.207-1.523.175-1.755.894a8.3 8.3 0 0 1-.534 1.28c-.353.681-.043 1.489.655 1.808.688.315 1.531.053 1.878-.617q.423-.815.703-1.683c.234-.728-.21-1.473-.947-1.682"/></symbol>
+  </defs>
+</svg>
+
+<header class="nav">
+  <button class="iconbtn" id="menuBtn" aria-label="Menu" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+  <a class="logo" href="#" aria-label="Home"><svg><use href="#i-q"/></svg></a>
+  <form class="search" role="search" onsubmit="return false">
+    <svg><use href="#i-search"/></svg>
+    <input type="text" placeholder="Search for practice tests" aria-label="Search">
+  </form>
+  <span style="flex:1" class="hide-m"></span>
+  <a class="nbtn rec hide-m" href="#"><svg style="width:24px;height:24px"><use href="#i-mic"/></svg><span>Record lecture</span></a>
+  <button class="fab" aria-label="Create"><svg><use href="#i-plus"/></svg></button>
+  <a class="nbtn upg hide-m" href="#">Missing Q+?</a>
+  <button class="avatar" id="themeBtn" aria-label="Toggle light or dark mode" title="Toggle light / dark mode">K</button>
+</header>
+
+<div class="shell">
+<aside class="side" id="side" aria-label="Site navigation">
+  <button class="si"><svg><use href="#i-home"/></svg>Home</button>
+  <button class="si"><svg><use href="#i-lib"/></svg>Your library</button>
+  <button class="si"><svg><use href="#i-groups"/></svg>Study groups</button>
+  <button class="si"><svg><use href="#i-bell"/></svg>Notifications</button>
+  <hr>
+  <h4>Start here</h4>
+  <button class="si c-sky" id="sideCards"><svg><use href="#i-cards"/></svg>Flashcards</button>
+  <button class="si"><svg><use href="#i-pod"/></svg>Podcasts<span class="pill">Beta</span></button>
+  <button class="si c-lilac active"><svg><use href="#i-guide"/></svg>Study Guides</button>
+  <button class="si"><svg><use href="#i-games"/></svg>Games</button>
+  <button class="si c-sherbert"><svg><use href="#i-test"/></svg>Practice Tests</button>
+  <button class="si c-mint"><svg><use href="#i-book"/></svg>Expert Solutions</button>
+  <hr>
+  <button class="si"><svg><use href="#i-folder"/></svg>ECON 10100</button>
+  <button class="si"><svg><use href="#i-folder"/></svg>BIO</button>
+  <button class="si"><svg><use href="#i-folder"/></svg>Psychology</button>
+  <button class="si"><svg><use href="#i-plus"/></svg>New folder</button>
+</aside>
+
+<main>
+<div class="page">
+  <div class="head">
+    <h1 class="title">COMM 111 Exam 2: Identity, Perception, Relationships &amp; Groups</h1>
+    <div class="actions">
+      <button class="iconbtn" aria-label="Save to folder"><svg><use href="#i-bookmark"/></svg></button>
+      <button class="iconbtn" aria-label="Share" id="shareBtn"><svg><use href="#i-share"/></svg></button>
+      <button class="iconbtn" aria-label="More"><svg><use href="#i-more"/></svg></button>
+    </div>
+  <div class="meta">
+    <span class="by"><span class="avatar sm-av" aria-hidden="true">K</span>Katiewillnotcrashout</span>
+    <span><svg><use href="#i-clock"/></svg>Created 10/22/26</span>
+  </div>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Study guide sections">
+    <button class="tab" role="tab" id="tab-notes" aria-controls="panel-notes" aria-selected="true">Outline</button>
+    <button class="tab" role="tab" id="tab-qr" aria-controls="panel-qr" aria-selected="false" tabindex="-1">Quick reference</button>
+  </div>
+
+  <section class="panel" id="panel-notes" role="tabpanel" aria-labelledby="tab-notes">
+    <div class="notes" id="notes"></div>
+
+    <div class="dq">
+      <h1>Discussion questions</h1>
+      <div class="dq-desk">
+        <div class="dq-head">
+          <button class="iconbtn" id="dqPrev" aria-label="Previous question"><svg><use href="#i-left"/></svg></button>
+          <span id="dqCount">1 of 6</span>
+          <button class="iconbtn" id="dqNext" aria-label="Next question"><svg><use href="#i-right"/></svg></button>
+        </div>
+        <div class="dq-card">
+          <p class="dq-q" id="dqQ"></p>
+          <div class="diff" id="dqDiff"></div>
+          <div style="margin-top:16px"><button class="btn t" id="dqShow" aria-expanded="false"><span id="dqShowTxt">Show example answer</span><svg><use href="#i-eye"/></svg></button></div>
+          <div class="ans" id="dqAns" hidden></div>
+          <div class="rate"><button class="iconbtn" disabled aria-label="Thumbs up"><svg><use href="#i-up"/></svg></button><button class="iconbtn" disabled aria-label="Thumbs down"><svg><use href="#i-down"/></svg></button></div>
+        </div>
+      </div>
+      <div class="dq-list" id="dqList"></div>
+    </div>
+
+    <p class="disc">This product is enhanced by AI and may provide incorrect or problematic content. Please report any content that needs review.</p>
+
+    <div class="study">
+      <h2>Study this material</h2>
+      <div class="studybtns">
+        <button class="btn" id="studyCards"><svg><use href="#i-fcbrand"/></svg>Flashcards</button>
+        <button class="btn" id="studyQs"><svg><use href="#i-learnbrand"/></svg>Practice questions</button>
+      </div>
+    </div>
+
+    <div class="cta">
+      <div class="l"><svg><use href="#i-sparkle"/></svg>Want to see your own notes transformed?</div>
+      <button class="btn p">Try it out</button>
+    </div>
+  </section>
+
+  <section class="panel qr" id="panel-qr" role="tabpanel" aria-labelledby="tab-qr" hidden></section>
+</div>
+</main>
+</div>
+
+<div class="reviewbar" id="reviewBar">
+  <div class="rmenu" id="rMenu" role="menu" hidden>
+    <button class="si c-sky" role="menuitem" id="rCards"><svg><use href="#i-cards"/></svg>Flashcards</button>
+    <button class="si c-sherbert" role="menuitem" id="rQs"><svg><use href="#i-test"/></svg>Practice questions</button>
+  </div>
+  <button class="btn p block lg" id="rBtn" aria-haspopup="true" aria-expanded="false" title="Review with an activity">Review with an activity</button>
+</div>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-label="Flashcards">
+  <div class="mbox">
+    <div class="mtop"><span id="modalTitle">Flashcards</span><button class="iconbtn" id="mClose" aria-label="Close"><svg><use href="#i-close"/></svg></button></div>
+    <div id="mBody"></div>
+  </div>
+</div>
+
+<script>
+var OUTLINE = [
+ {id:"c2", title:"Chapter 2: Identity", topics:[
+  ["Defining Identity",[
+    "Identity encompasses who you are, including unique characteristics that differentiate you from others and social categories.",
+    "It is both a personal and social construct, influenced by various factors such as culture, community, and personal experiences."]],
+  ["Fixed vs. Dynamic Identity",[
+    "Certain aspects of identity are stable, such as race or gender, while others can evolve over time, like personal beliefs or social roles.",
+    "Life experiences, relationships, and societal changes can lead to shifts in identity."]],
+  ["Primary and Secondary Identity",[
+    "Primary identity refers to core aspects such as race, gender, and nationality, which are often seen as unchangeable.",
+    "Secondary identity includes roles and affiliations that can change, such as job titles or social groups."]],
+  ["Reflected Appraisals and Social Comparisons",[
+    "Reflected appraisals (looking glass self) suggest that self-image is shaped by how others perceive us.",
+    "Social comparisons help individuals assess their own value by comparing themselves to others, influencing self-esteem."]],
+  ["Dimensions of Identity",[
+    "Identity dimensions include racial, national, ethnic, gender, sexual, age, social class, disability, religious, and role identities.",
+    "Personal examples illustrate how these dimensions manifest in everyday life, such as cultural pride or personal challenges."]],
+  ["Johari Window Model",[
+    "The Johari Window is a tool for understanding self-awareness and interpersonal communication, consisting of four quadrants: open, blind, hidden, and unknown.",
+    "It emphasizes the importance of feedback and self-disclosure in personal development."], "johari"]
+ ]},
+ {id:"c3", title:"Chapter 3: Perception", topics:[
+  ["Understanding Perception",[
+    "Perception is the process of interpreting sensory information to understand and respond to the environment.",
+    "It plays a crucial role in communication, as it affects how messages are sent and received."]],
+  ["Steps in the Perception Process",[
+    "The perception process involves three steps: selection (focusing on specific sensory information), organization (categorizing sensory input), and interpretation (assigning meaning).",
+    "Each step is essential for effective communication and understanding."]],
+  ["Cognitive Representation and Stereotypes",[
+    "Cognitive representation allows individuals to form mental models of the world, aiding in information processing.",
+    "Stereotypes and labels help categorize people quickly but can lead to oversimplification and bias."]],
+  ["Attribution Theory",[
+    "Attribution theory explains how individuals interpret the causes of behaviors and events, distinguishing between internal (personal traits) and external (situational factors) attributions.",
+    "Understanding attribution can improve interpersonal communication by clarifying misunderstandings."]],
+  ["Cultural Influences on Perception",[
+    "Culture significantly shapes perceptions, influencing norms and behaviors, such as greetings or personal space.",
+    "Ethnocentrism can lead to biased perceptions, where one's own culture is viewed as superior."]]
+ ]},
+ {id:"c9", title:"Chapter 9: Close Relationships", topics:[
+  ["Interpersonal Communication Defined",[
+    "Interpersonal communication involves the exchange of messages, ideas, and emotions between interdependent individuals.",
+    "It is characterized by mutual influence, where each person's communication affects the other."]],
+  ["Factors Associated with Attraction",[
+    "Attraction in close relationships is influenced by three primary factors: task attraction (shared goals), social attraction (likability), and physical attraction (appearance).",
+    "Understanding these factors can enhance relationship-building skills."]]
+ ]},
+ {id:"attr", title:"Attraction and Relationship Development", topics:[
+  ["Types of Attraction",[
+    "Attraction can be categorized into three main types: task, social, and physical.",
+    ["Task Attraction","The desire to work with someone based on their skills or abilities relevant to a task."],
+    ["Social Attraction","Influenced by personality traits; individuals are drawn to those who are kind and bubbly rather than mean."],
+    ["Physical Attraction","Based on physical appearance and how one perceives another's attractiveness."]]],
+  ["Self-Disclosure and Social Penetration Theory",[
+    ["Self-Disclosure","The act of revealing personal information to others, which can strengthen interpersonal bonds."],
+    ["Social Penetration Theory","Relationships develop through increasing levels of self-disclosure."],
+    ["Three Factors of Self-Disclosure",""],
+    {sub:[["Breadth","The variety of topics discussed."],["Depth","The intimacy level of the information shared."],["Frequency/Reciprocity","The mutual exchange of personal information between individuals."]]}]],
+  ["Uncertainty Reduction Theory (URT)",[
+    ["Purpose of URT","Explains why individuals ask questions in relationships to reduce uncertainty about each other."],
+    ["Methods of Reducing Uncertainty",""],
+    {sub:[["Checking In","Regularly confirming feelings or thoughts."],["Asking Questions","Inquiring about personal experiences or opinions."],["Showing Support","Demonstrating presence and support to build trust."]]}]],
+  ["Social Exchange and Equity Theories",[
+    ["Social Exchange Theory","Relationships are formed based on a cost-benefit analysis, where individuals seek to maximize benefits while minimizing costs."],
+    ["Equity Theory","Emphasizes fairness in relationships, asserting that benefits should be proportional to contributions from each partner."]]],
+  ["Dialectical Tensions in Relationships",[
+    ["Dialectical Tensions","Opposing forces that create challenges in relationships."],
+    ["External Tensions",""],
+    {sub:[["Seclusion-Inclusion","Balancing time spent alone versus with others."],["Reveal-Conceal","Deciding what personal information to share."],["Unique-Conventional","Navigating between being unique as a couple versus conforming to societal norms."]]},
+    ["Internal Tensions",""],
+    {sub:[["Autonomy-Connection","Balancing independence with closeness."],["Expression-Privacy","Managing the need to share versus the need for privacy."],["Change-Predictability","Balancing the desire for stability with the need for change."]]}]]
+ ]},
+ {id:"stages", title:"Stages of Relationship Development", topics:[
+  ["Knapp's Stages Model",[
+    ["Initiating","The first meeting where first impressions are crucial."],
+    ["Experimenting","Learning about each other through conversations."],
+    ["Intensifying","Developing a deeper connection and affection."],
+    ["Integrating","Establishing a shared identity as a couple."],
+    ["Bonding","Publicly affirming the relationship through commitments."],
+    ["Differentiating","Creating personal space and independence."],
+    ["Circumscribing","Limiting discussions to safer topics."],
+    ["Stagnating","Avoiding change and growth in the relationship."],
+    ["Avoiding","Actively declining interaction."],
+    ["Terminating","Ending the relationship."]]],
+  ["Comparison of Models",[
+    ["Stages Model vs. Turning Point Model",""],
+    {sub:["The stages model is linear and follows a strict path, while the turning point model is event-driven and non-linear."]},
+    ["Examples of Turning Points","Significant events such as moving in together or experiencing major life changes."]]],
+  ["Relationship Strategies",[
+    ["Strategies for Initiating, Maintaining, and Terminating Relationships",""],
+    {sub:["Effective communication and setting boundaries are crucial for healthy relationships."]},
+    ["Destructive Behaviors","Avoidance and lack of communication can harm relationships."]]],
+  ["Types of Deception",[
+    ["Instrumental Deception","Lies told to achieve a specific goal."],
+    ["Relational Deception","Misleading information that affects relationships."],
+    ["Identity Deception","Misrepresenting oneself."],
+    ["Self-Deception","Convincing oneself of falsehoods."],
+    ["Gaslighting","Manipulating someone into doubting their reality."]]]
+ ]},
+ {id:"groups", title:"Small Group Communication", topics:[
+  ["Definition and Importance",[
+    ["Small Group Communication","Involves groups of three or more individuals working towards a common goal."],
+    ["Advantages","Enhances performance in academic and professional settings, fosters collaboration, and encourages diverse perspectives."],
+    ["Disadvantages","Potential for unequal participation, feeling unheard, and interpersonal conflicts."]]],
+  ["Virtual vs. In-Person Groups",[
+    ["Differences",""],
+    {sub:["Virtual groups face unique logistical challenges and may lack the richness of face-to-face interactions."]}]],
+  ["Group Roles",[
+    ["Task Roles","Roles focused on completing tasks."],
+    {sub:[["Opinion Seeker","Gathers opinions from group members."],["Energizer","Motivates the group to enhance productivity."],["Information Giver","Provides relevant facts and insights."]]},
+    ["Relational Roles","Roles that maintain group dynamics."],
+    {sub:[["Gatekeeper","Encourages participation from all members."],["Follower","Supports the group's direction without leading."],["Standard Setter","Establishes goals and expectations."]]},
+    ["Individual Roles","Roles that may disrupt group dynamics."],
+    {sub:[["Joker","Lightens the mood but may distract."],["Blocker","Opposes ideas without constructive feedback."],["Self-Confessor","Shares personal feelings unrelated to the task."]]}]],
+  ["Leadership Theories",[
+    ["Trait Leadership Theory","Suggests leaders are born with inherent traits."],
+    ["Functional/Situational Theory","Proposes that leadership skills can be developed."],
+    ["Style Theory","Emphasizes that a leader's style impacts their effectiveness."],
+    ["Transformational Leadership Theory","Focuses on inspiring and empowering followers."],
+    ["Servant-Leadership Theory","Prioritizes serving others' needs to enhance teamwork."]]],
+  ["Effective Practices and Problem-Solving",[
+    ["Effective Small Group Practices",""],
+    {sub:["Listening to all ideas, contributing fairly, and showing interest in others' contributions."]},
+    ["Five Problem-Solving Steps",""],
+    {ol:[["Define the Problem","Clarify the issue at hand."],["Analyze the Problem","Assess details and implications."],["Brainstorm Solutions","Generate ideas without critique."],["Evaluate Solutions","Discuss the feasibility of ideas."],["Pick a Solution","Decide on the best course of action."]]}]],
+  ["Groupthink and Diversity",[
+    ["Groupthink","A phenomenon where group members prioritize consensus over critical thinking, leading to poor decision-making."],
+    ["Benefits of Diverse Groups","Diversity fosters creativity, enhances problem-solving, and allows for a broader range of perspectives."]]]
+ ]}
+];
+
+var QR = [
+ {title:"Key Terms/Concepts", list:[
+  ["Identity","Who you are and the specific characteristics that differentiate you from others."],
+  ["Reflected Appraisals (Looking Glass Self)","The concept that self-image is shaped by how others perceive us."],
+  ["Selective Attention","The process of focusing on a narrow range of sensory information to manage information overload."],
+  ["Self-Disclosure","Revealing personal information to others, which can strengthen relationships."],
+  ["Groupthink","A phenomenon where group members prioritize consensus over critical thinking, leading to poor decision-making."]]},
+ {title:"Fundamental Theories", table:{head:["Theory","Description"], rows:[
+  ["Social Penetration Theory","Suggests that self-disclosure increases intimacy in relationships through breadth and depth of shared information."],
+  ["Uncertainty Reduction Theory (URT)","Explains how individuals seek information to reduce uncertainty in interpersonal relationships."],
+  ["Attribution Theory","A framework for understanding how people interpret the causes of events and behaviors, distinguishing between internal and external attributions."],
+  ["Transformational Leadership Theory","Focuses on leaders who inspire and motivate followers to achieve their full potential."],
+  ["Servant-Leadership Theory","Emphasizes serving others' needs to enhance teamwork and personal involvement."]]}},
+ {title:"Key People", list:[
+  ["George Herbert Mead","Influential in developing the concept of the generalized other, which reflects societal norms and values."],
+  ["Irwin Altman and Dalmas Taylor","Developed the Social Penetration Theory, focusing on self-disclosure in relationships."]]},
+ {title:"Key Concepts in Close Relationships", list:[
+  ["Attraction Factors","Task, social, and physical attraction influence interpersonal relationships."],
+  ["Dialectical Tensions","Conflicts that arise in relationships, such as autonomy vs. connection and openness vs. privacy."],
+  ["Stages of Relationship Development","Includes initiating, experimenting, intensifying, integrating, bonding, differentiating, stagnating, avoiding, and terminating."]]},
+ {title:"Key Practices in Small Group Communication", list:[
+  ["Effective Practices","Listening to all ideas, completing assigned tasks, and showing interest in others' contributions."],
+  ["Problem-Solving Steps","Define the problem, analyze it, brainstorm solutions, evaluate solutions, and pick a solution."]]},
+ {title:"Facts to Memorize", list:[
+  "Johari Window: A model for self-awareness and personal development.",
+  "Social Penetration Theory: Involves breadth, depth, and frequency/reciprocity in self-disclosure.",
+  "Uncertainty Reduction Theory: Explains the need for asking questions in relationships.",
+  "Groupthink: A phenomenon where group members conform to avoid conflict."]},
+ {title:"Reference Information", list:[
+  "Identity dimensions: racial, national, ethnic, gender, sexual, age, social class, disability, religious, and role.",
+  "Types of deception: instrumental, relational, identity, self-deception, and gaslighting.",
+  "Leadership theories: Trait, Functional/Situational, Style, Transformational, and Servant-leadership."]},
+ {title:"Concept Comparisons", table:{head:["Concept","Description"], rows:[
+  ["Particular Other","Individuals whose opinions significantly influence one's identity."],
+  ["Generalized Other","The collective norms and values of the community that shape identity."],
+  ["Internal Attribution","Assigning causes of behavior to personal traits or characteristics."],
+  ["External Attribution","Assigning causes of behavior to situational factors or environment."],
+  ["Task Attraction","Attraction based on the desire to work with someone on a task."],
+  ["Social Attraction","Attraction based on personality traits and social behavior."],
+  ["Physical Attraction","Attraction based on physical appearance."]]}}
+];
+
+var DQ = [
+ {q:"How does the concept of identity encompass both fixed and dynamic elements in an individual's life?", d:"medium",
+  a:"Identity is shaped by both stable characteristics, such as race or gender, and dynamic aspects that evolve over time, influenced by personal experiences and social interactions. This duality allows individuals to maintain a core sense of self while adapting to changing circumstances and environments."},
+ {q:"In what ways do particular others and generalized others contribute to the formation of an individual's identity?", d:"medium",
+  a:"Particular others, such as close friends and family, provide direct feedback and influence specific aspects of identity through personal interactions, while generalized others represent societal norms and expectations that shape broader identity constructs. Together, they create a complex interplay that informs how individuals perceive themselves and their roles within society."},
+ {q:"What role does self-disclosure play in the development of close relationships according to social penetration theory?", d:"medium",
+  a:"Self-disclosure fosters intimacy in relationships by allowing individuals to share personal thoughts and feelings, which can deepen connections. Social penetration theory suggests that as self-disclosure increases in breadth and depth, relationships become more meaningful and robust."},
+ {q:"How do cognitive representations and schemas influence our perception of the world?", d:"hard",
+  a:"Cognitive representations and schemas help individuals organize and interpret sensory information, allowing for quicker understanding and response to their environment. These mental frameworks shape perceptions by filtering experiences through pre-existing beliefs and knowledge, which can lead to biases in how we view others and situations."},
+ {q:"Discuss the implications of Groupthink in small group communication and decision-making.", d:"hard",
+  a:"Groupthink can lead to poor decision-making as members prioritize consensus over critical evaluation of ideas, often resulting in the suppression of dissenting opinions and a lack of creativity. This phenomenon highlights the importance of fostering an open environment where diverse perspectives are encouraged to enhance group effectiveness."},
+ {q:"What are the ethical considerations surrounding the presentation of different selves in various social contexts?", d:"medium",
+  a:"Presenting different selves can be ethical when it reflects genuine aspects of identity tailored to specific contexts, promoting adaptability and social harmony. However, it raises concerns about authenticity and trust, as individuals may struggle with the discrepancies between their true selves and the personas they project."}
+];
+
+
+</script>
+<script>
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function item(li,it){
+  if(Array.isArray(it)){li.appendChild(el('strong',null,it[0]));li.appendChild(document.createTextNode(it[1]?': '+it[1]:':'))}
+  else li.appendChild(document.createTextNode(it));
+}
+function buildList(items,ordered){
+  var ul=el(ordered?'ol':'ul'),last=null;
+  items.forEach(function(it){
+    var nested=(typeof it==='object'&&!Array.isArray(it))?it:null;
+    if(nested){var host=last||ul.appendChild(el('li'));host.appendChild(nested.ol?buildList(nested.ol,true):buildList(nested.sub));return}
+    var li=el('li');item(li,it);ul.appendChild(li);last=li;
+  });
+  return ul;
+}
+function johari(){
+  var f=el('div','figure');
+  var fs=el('button','fs');fs.setAttribute('aria-label','Fullscreen');fs.innerHTML='<svg><use href="#i-fs"/></svg>';f.appendChild(fs);
+  var j=el('div','johari');j.setAttribute('role','img');
+  j.setAttribute('aria-label','The Johari window model categorizes self-awareness into four quadrants: Open Self, Blind Self, Hidden Self, and Unknown Self, based on what is known to oneself and to others.');
+  var g=el('div','jgrid');
+  g.appendChild(el('div'));g.appendChild(el('div','jhead','Known to self'));g.appendChild(el('div','jhead','Not known to self'));
+  g.appendChild(el('div','jside','Known to others'));
+  [['j1','Open Self','Known to you and to others'],['j2','Blind Self','Others see it, you do not']].forEach(function(c){var d=el('div','jcell '+c[0]);d.appendChild(el('b',null,c[1]));d.appendChild(el('span',null,c[2]));g.appendChild(d)});
+  g.appendChild(el('div','jside','Not known to others'));
+  [['j3','Hidden Self','You know it, others do not'],['j4','Unknown Self','Neither you nor others know it']].forEach(function(c){var d=el('div','jcell '+c[0]);d.appendChild(el('b',null,c[1]));d.appendChild(el('span',null,c[2]));g.appendChild(d)});
+  j.appendChild(g);f.appendChild(j);
+  f.appendChild(el('div','figcap','The Johari window model categorizes self-awareness into four quadrants: Open Self, Blind Self, Hidden Self, and Unknown Self, based on what is known to oneself and to others.'));
+  return f;
+}
+/* outline */
+(function(){
+  var n=document.getElementById('notes');
+  OUTLINE.forEach(function(ch){
+    var h=el('h1',null,ch.title);h.id=ch.id;n.appendChild(h);
+    ch.topics.forEach(function(t){n.appendChild(el('h3',null,t[0]));n.appendChild(buildList(t[1]));if(t[2]==='johari')n.appendChild(johari())});
+  });
+})();
+/* quick reference */
+(function(){
+  var qr=document.getElementById('panel-qr');
+  QR.forEach(function(s){
+    var sec=el('section');sec.appendChild(el('h2',null,s.title));
+    if(s.list)sec.appendChild(buildList(s.list));
+    if(s.table){
+      var w=el('div','tblwrap'),t=el('table'),th=el('thead'),tr=el('tr');
+      s.table.head.forEach(function(x){var c=el('th',null,x);c.scope='col';tr.appendChild(c)});th.appendChild(tr);t.appendChild(th);
+      var tb=el('tbody');s.table.rows.forEach(function(r){var row=el('tr');row.appendChild(el('td',null,r[0]));row.appendChild(el('td',null,r[1]));tb.appendChild(row)});
+      t.appendChild(tb);w.appendChild(t);sec.appendChild(w);
+    }
+    qr.appendChild(sec);
+  });
+})();
+/* discussion questions */
+(function(){
+  var i=0,shown=false;
+  var q=document.getElementById('dqQ'),df=document.getElementById('dqDiff'),an=document.getElementById('dqAns'),
+      cn=document.getElementById('dqCount'),pv=document.getElementById('dqPrev'),nx=document.getElementById('dqNext'),sh=document.getElementById('dqShow'),st=document.getElementById('dqShowTxt');
+  function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+  function render(){
+    var d=DQ[i];q.textContent=d.q;df.textContent='Difficulty: '+cap(d.d);df.className='diff '+d.d;
+    an.textContent=d.a;an.hidden=!shown;st.textContent=shown?'Hide example answer':'Show example answer';sh.setAttribute('aria-expanded',String(shown));
+    cn.textContent=(i+1)+' of '+DQ.length;pv.disabled=i===0;nx.disabled=i===DQ.length-1;
+    pv.style.opacity=pv.disabled?.35:1;nx.style.opacity=nx.disabled?.35:1;
+  }
+  pv.onclick=function(){if(i>0){i--;shown=false;render()}};
+  nx.onclick=function(){if(i<DQ.length-1){i++;shown=false;render()}};
+  sh.onclick=function(){shown=!shown;render()};
+  render();
+  var list=document.getElementById('dqList');
+  DQ.forEach(function(d,k){
+    var c=el('div','dq-card');c.appendChild(el('div','n',(k+1)+'/'+DQ.length));c.appendChild(el('p','dq-q',d.q));
+    c.appendChild(el('div','diff '+d.d,'Difficulty: '+cap(d.d)));
+    var b=el('button','btn p block','Show example answer');b.style.marginTop='16px';b.setAttribute('aria-expanded','false');
+    var a=el('div','ans',d.a);a.hidden=true;
+    b.onclick=function(){a.hidden=!a.hidden;b.textContent=a.hidden?'Show example answer':'Hide example answer';b.setAttribute('aria-expanded',String(!a.hidden))};
+    c.appendChild(b);c.appendChild(a);list.appendChild(c);
+  });
+})();
+/* tabs */
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function sel(t){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',String(on));x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on});}
+  tabs.forEach(function(t,i){
+    t.onclick=function(){sel(t)};
+    t.onkeydown=function(e){var n=null;if(e.key==='ArrowRight')n=tabs[(i+1)%tabs.length];if(e.key==='ArrowLeft')n=tabs[(i-1+tabs.length)%tabs.length];if(n){n.focus();sel(n);e.preventDefault()}};
+  });
+})();
+/* chapter anchors scroll within notes tab */
+/* sidebar */
+(function(){
+  var b=document.getElementById('menuBtn');
+  b.onclick=function(){var o=document.body.classList.toggle('nav-open');b.setAttribute('aria-expanded',String(o))};
+  document.getElementById('side').addEventListener('click',function(e){if(innerWidth<1024&&e.target.closest('.si')){document.body.classList.remove('nav-open');b.setAttribute('aria-expanded','false')}});
+})();
+/* theme */
+(function(){
+  var root=document.documentElement;
+  function dark(){var t=root.getAttribute('data-theme');return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches}
+  try{var s=localStorage.getItem('comm111-theme');if(s)root.setAttribute('data-theme',s)}catch(e){}
+  document.getElementById('themeBtn').onclick=function(){var n=dark()?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('comm111-theme',n)}catch(e){}};
+})();
+/* share */
+document.getElementById('shareBtn').onclick=function(){
+  var b=this;
+  try{navigator.clipboard.writeText(location.href).then(function(){b.setAttribute('aria-label','Link copied');setTimeout(function(){b.setAttribute('aria-label','Share')},1500)})}catch(e){}
+};
+/* review bar */
+(function(){
+  var b=document.getElementById('rBtn'),m=document.getElementById('rMenu');
+  function set(o){m.hidden=!o;b.setAttribute('aria-expanded',String(o))}
+  b.onclick=function(e){e.stopPropagation();set(m.hidden)};
+  document.addEventListener('click',function(e){if(!m.hidden&&!m.contains(e.target))set(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden){set(false);b.focus()}});
+  document.getElementById('rCards').onclick=function(){set(false);document.getElementById('studyCards').click()};
+  document.getElementById('rQs').onclick=function(){set(false);document.getElementById('studyQs').click()};
+})();
+/* study modal: flashcards + practice questions */
+var CARDS=[];
+QR.forEach(function(s){
+  if(s.list)s.list.forEach(function(x){if(Array.isArray(x))CARDS.push([x[0],x[1]])});
+  if(s.table)s.table.rows.forEach(function(r){CARDS.push([r[0],r[1]])});
+});
+(function(){
+  var modal=document.getElementById('modal'),body=document.getElementById('mBody'),title=document.getElementById('modalTitle'),opener=null;
+  function open(kind,from){opener=from;body.textContent='';modal.hidden=false;document.body.style.overflow='hidden';
+    if(kind==='cards'){title.textContent='Flashcards';cards()}else{title.textContent='Practice questions';quiz()}
+    document.getElementById('mClose').focus()}
+  function close(){modal.hidden=true;document.body.style.overflow='';if(opener)opener.focus()}
+  document.getElementById('mClose').onclick=close;
+  modal.addEventListener('click',function(e){if(e.target===modal)close()});
+  document.addEventListener('keydown',function(e){if(modal.hidden)return;if(e.key==='Escape')close()});
+  document.getElementById('studyCards').onclick=function(){open('cards',this)};
+  document.getElementById('sideCards').onclick=function(){location.href='comm111_set_page.html'};
+  document.getElementById('studyQs').onclick=function(){open('quiz',this)};
+
+  function cards(){
+    var order=CARDS.map(function(_,i){return i}),pos=0;
+    var fc=el('button','fc');fc.innerHTML='<div class="fci"><div class="fcf f"></div><div class="fcf b"></div></div>';
+    var ctl=el('div','fcctl'),pv=el('button','btn o','Previous'),cn=el('span','fccount'),nx=el('button','btn p','Next'),sf=el('button','btn o','Shuffle');
+    ctl.appendChild(pv);ctl.appendChild(cn);ctl.appendChild(nx);ctl.appendChild(sf);
+    body.appendChild(fc);body.appendChild(ctl);body.appendChild(el('p','hint','Click the card or press Space to flip. Use the arrow keys to move.'));
+    function r(){var c=CARDS[order[pos]];fc.querySelector('.f').textContent=c[0];fc.querySelector('.b').textContent=c[1];fc.classList.remove('flip');cn.textContent=(pos+1)+' / '+CARDS.length;fc.setAttribute('aria-label','Flashcard '+(pos+1)+' of '+CARDS.length+'. Term: '+c[0]+'. Press to flip.')}
+    function go(d){pos=(pos+d+CARDS.length)%CARDS.length;r()}
+    fc.onclick=function(){fc.classList.toggle('flip')};
+    nx.onclick=function(){go(1)};pv.onclick=function(){go(-1)};
+    sf.onclick=function(){for(var i=order.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=order[i];order[i]=order[j];order[j]=t}pos=0;r()};
+    modal.onkeydown=function(e){if(e.key==='ArrowRight')go(1);else if(e.key==='ArrowLeft')go(-1)};
+    r();
+  }
+  function quiz(){
+    modal.onkeydown=null;
+    var qs=[],terms=CARDS.slice();
+    function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+    shuffle(terms).slice(0,10).forEach(function(c){
+      var wrong=shuffle(terms.filter(function(x){return x[0]!==c[0]})).slice(0,3);
+      qs.push({q:c[1],a:c[0],opts:shuffle(wrong.map(function(w){return w[0]}).concat([c[0]]))});
+    });
+    var k=0,score=0;
+    function r(){
+      body.textContent='';
+      if(k>=qs.length){body.appendChild(el('p','dq-q','You got '+score+' of '+qs.length+' right.'));var again=el('button','btn p','Try again');again.onclick=quiz;body.appendChild(again);return}
+      var Q=qs[k];
+      body.appendChild(el('div','diff','Question '+(k+1)+' of '+qs.length+' — which term matches this definition?'));
+      var card=el('div','dq-card');card.appendChild(el('p','dq-q',Q.q));body.appendChild(card);
+      var grid=el('div');grid.style.cssText='display:grid;gap:8px;margin-top:12px';
+      var done=false;
+      Q.opts.forEach(function(o){
+        var b=el('button','btn o',o);b.style.cssText='height:auto;min-height:44px;padding:10px 16px;justify-content:flex-start;text-align:left;border-radius:12px';
+        b.onclick=function(){
+          if(done)return;done=true;
+          [].forEach.call(grid.children,function(x){x.disabled=true;if(x.textContent===Q.a){x.style.borderColor='var(--mint)';x.style.background='var(--mint-soft)'}});
+          if(o===Q.a)score++;else{b.style.borderColor='var(--hard)'}
+          var nb=el('button','btn p',k===qs.length-1?'See results':'Next');nb.style.marginTop='12px';nb.onclick=function(){k++;r()};body.appendChild(nb);nb.focus();
+        };
+        grid.appendChild(b);
+      });
+      body.appendChild(grid);
+    }
+    r();
+  }
+})();
+</script>
+</body>
+</html>

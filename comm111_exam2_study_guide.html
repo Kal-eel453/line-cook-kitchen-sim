@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COMM 111 Exam 2 Study Guide</title>
+<style>
+:root{
+  --bg:#ffffff; --surface:#f6f7fb; --surface2:#eceef6; --text:#282e3e; --muted:#586380;
+  --line:#dde1ee; --accent:#4255ff; --accent-ink:#ffffff; --accent-soft:#e6e9ff;
+  --lilac:#9900be; --ok:#1c8f5a; --warn:#b36b00; --bad:#c23b4d;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a092d; --surface:#161a3b; --surface2:#1f2450; --text:#f6f7fb; --muted:#a8b0cc;
+    --line:#2e3366; --accent:#8c9bff; --accent-ink:#0a092d; --accent-soft:#222a66;
+    --lilac:#d58bff; --ok:#5fd6a0; --warn:#ffcd1f; --bad:#ff8b9c;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a092d; --surface:#161a3b; --surface2:#1f2450; --text:#f6f7fb; --muted:#a8b0cc;
+  --line:#2e3366; --accent:#8c9bff; --accent-ink:#0a092d; --accent-soft:#222a66;
+  --lilac:#d58bff; --ok:#5fd6a0; --warn:#ffcd1f; --bad:#ff8b9c;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:60rem;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:5}
+.top-in{display:flex;align-items:center;gap:12px;height:56px}
+.logo{font-weight:800;font-size:18px;color:var(--accent);letter-spacing:-.02em}
+.spacer{flex:1}
+button{font:inherit;color:inherit;cursor:pointer}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-weight:600;font-size:14px}
+.btn:hover{background:var(--surface2)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:focus-visible,.tab:focus-visible,.fc:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+h1.title{font-size:clamp(24px,4vw,34px);line-height:1.2;margin:28px 0 10px;letter-spacing:-.02em}
+.meta{display:flex;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:14px;align-items:center}
+.avatar{width:24px;height:24px;border-radius:50%;background:var(--lilac);color:var(--bg);display:inline-grid;place-items:center;font-size:12px;font-weight:700;vertical-align:middle;margin-right:6px}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin:22px 0 0}
+.tab{background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px;font-weight:600;color:var(--muted)}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.panel{padding:24px 0}
+.panel[hidden]{display:none}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;color:var(--text);text-decoration:none}
+.chip:hover{background:var(--accent-soft)}
+.outline h2{font-size:24px;margin:34px 0 6px;padding-top:6px;letter-spacing:-.01em;scroll-margin-top:72px}
+.outline h2:first-child{margin-top:0}
+.outline h3{font-size:18px;margin:22px 0 6px;color:var(--text)}
+.outline ul,.qr ul{margin:0 0 8px;padding-left:22px}
+.outline li,.qr li{margin:5px 0}
+.outline ul ul{margin-top:2px}
+.outline ol{padding-left:24px}
+b.term{color:var(--accent);font-weight:700}
+.johari{margin:16px 0 8px;max-width:520px}
+.johari .axis{display:grid;grid-template-columns:24px 1fr 1fr;gap:4px;font-size:12px;color:var(--muted);font-weight:600;text-align:center}
+.johari .grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.johari .cell{border-radius:10px;padding:14px;min-height:96px}
+.johari .cell strong{display:block;font-size:15px}
+.johari .cell span{font-size:13px;color:var(--muted)}
+.c1{background:var(--accent-soft)}.c2{background:rgba(255,205,31,.22)}.c3{background:rgba(213,139,255,.2)}.c4{background:var(--surface2)}
+.johari .row{display:grid;grid-template-columns:24px 1fr;gap:4px;align-items:stretch}
+.johari .vlabel{writing-mode:vertical-rl;transform:rotate(180deg);font-size:12px;color:var(--muted);font-weight:600;text-align:center}
+.vwrap{display:grid;grid-template-columns:24px 1fr;gap:4px}
+.vlabels{display:grid;grid-template-rows:1fr 1fr;gap:4px}
+.cap{font-size:13px;color:var(--muted);margin-top:6px}
+.qr section{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:14px}
+.qr h2{font-size:18px;margin:0 0 8px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+.tblwrap{overflow-x:auto}
+.dq{border-top:1px solid var(--line);margin-top:40px;padding-top:28px}
+.dq h2{font-size:22px;margin:0 0 14px}
+.dq-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
+.dq-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;color:var(--muted);font-size:14px;font-weight:600}
+.dq-q{font-size:19px;font-weight:600;line-height:1.4;margin:0 0 6px}
+.diff{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;margin-bottom:14px}
+.diff.medium{background:rgba(255,205,31,.25);color:var(--warn)}
+.diff.hard{background:rgba(194,59,77,.15);color:var(--bad)}
+.ans{margin-top:14px;padding:14px 16px;border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 10px 10px 0}
+.ans[hidden]{display:none}
+.nav{display:flex;gap:8px;margin-left:auto}
+.nav .btn{padding:4px 12px}
+.nav .btn:disabled{opacity:.4;cursor:default}
+.disclaimer{font-size:12px;color:var(--muted);margin:26px 0}
+.study h2{font-size:20px;margin:0 0 12px}
+.fc-wrap{max-width:560px;margin:0 auto}
+.fc{perspective:1000px;background:none;border:0;padding:0;width:100%;height:280px;display:block}
+.fc-inner{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.fc.flip .fc-inner{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;padding:28px;text-align:center;font-size:20px;font-weight:600;box-shadow:0 6px 24px rgba(10,9,45,.12)}
+.fc-face.back{transform:rotateY(180deg);background:var(--accent-soft);font-weight:500;font-size:18px}
+.fc-ctl{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+.fc-count{color:var(--muted);font-size:14px;min-width:70px;text-align:center}
+.hint{text-align:center;color:var(--muted);font-size:13px;margin-top:10px}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px;padding:22px 0 40px;margin-top:30px}
+@media (prefers-reduced-motion: reduce){.fc-inner{transition:none}html{scroll-behavior:auto}}
+@media print{header.top,.tabs,.nav,.toc,footer,#themeBtn{display:none}.panel[hidden]{display:block}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <span class="logo" aria-label="Study guide">Study Guide</span>
+    <span class="spacer"></span>
+    <button class="btn" id="themeBtn" type="button" aria-label="Toggle dark mode">Dark mode</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 class="title">COMM 111 Exam 2: Identity, Perception, Relationships &amp; Groups</h1>
+  <div class="meta">
+    <span><span class="avatar" aria-hidden="true">K</span>Katiewillnotcrashout</span>
+    <span>Created 10/22/26</span>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Study guide sections">
+    <button class="tab" role="tab" id="tab-outline" aria-controls="panel-outline" aria-selected="true">Outline</button>
+    <button class="tab" role="tab" id="tab-qr" aria-controls="panel-qr" aria-selected="false" tabindex="-1">Quick reference</button>
+    <button class="tab" role="tab" id="tab-study" aria-controls="panel-study" aria-selected="false" tabindex="-1">Flashcards</button>
+  </div>
+
+  <section class="panel outline" id="panel-outline" role="tabpanel" aria-labelledby="tab-outline">
+    <nav class="toc" id="toc" aria-label="Jump to chapter"></nav>
+    <div id="outlineBody"></div>
+
+    <div class="dq">
+      <h2>Discussion questions</h2>
+      <div class="dq-card">
+        <div class="dq-head">
+          <span id="dqCount">1 of 6</span>
+          <div class="nav">
+            <button class="btn" id="dqPrev" type="button" aria-label="Previous question">&#8592;</button>
+            <button class="btn" id="dqNext" type="button" aria-label="Next question">&#8594;</button>
+          </div>
+        </div>
+        <p class="dq-q" id="dqQ"></p>
+        <span class="diff" id="dqDiff"></span><br>
+        <button class="btn" id="dqShow" type="button" aria-expanded="false">Show example answer</button>
+        <div class="ans" id="dqAns" hidden></div>
+      </div>
+      <p class="disclaimer">Answers are example responses. Use them as a starting point and check them against your lecture notes and textbook.</p>
+    </div>
+  </section>
+
+  <section class="panel qr" id="panel-qr" role="tabpanel" aria-labelledby="tab-qr" hidden></section>
+
+  <section class="panel study" id="panel-study" role="tabpanel" aria-labelledby="tab-study" hidden>
+    <h2>Flashcards</h2>
+    <div class="fc-wrap">
+      <button class="fc" id="fc" type="button" aria-label="Flashcard. Press to flip.">
+        <div class="fc-inner">
+          <div class="fc-face front" id="fcFront"></div>
+          <div class="fc-face back" id="fcBack"></div>
+        </div>
+      </button>
+      <div class="fc-ctl">
+        <button class="btn" id="fcPrev" type="button">Previous</button>
+        <span class="fc-count" id="fcCount"></span>
+        <button class="btn" id="fcNext" type="button">Next</button>
+        <button class="btn" id="fcShuffle" type="button">Shuffle</button>
+      </div>
+      <p class="hint">Click the card or press Space to flip. Arrow keys move between cards.</p>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">Recreated from a shared Quizlet study guide. Study aid only; verify against your course materials.</div></footer>
+
+<script>
+/* ---------- content ---------- */
+// Each topic: [title, items]. Item: string | [boldLabel, text] | {sub:[...]} for a nested list.
+var OUTLINE = [
+ {id:"c2", title:"Chapter 2: Identity", topics:[
+  ["Defining Identity",[
+    "Identity encompasses who you are, including unique characteristics that differentiate you from others and social categories.",
+    "It is both a personal and social construct, influenced by various factors such as culture, community, and personal experiences."]],
+  ["Fixed vs. Dynamic Identity",[
+    "Certain aspects of identity are stable, such as race or gender, while others can evolve over time, like personal beliefs or social roles.",
+    "Life experiences, relationships, and societal changes can lead to shifts in identity."]],
+  ["Primary and Secondary Identity",[
+    "Primary identity refers to core aspects such as race, gender, and nationality, which are often seen as unchangeable.",
+    "Secondary identity includes roles and affiliations that can change, such as job titles or social groups."]],
+  ["Reflected Appraisals and Social Comparisons",[
+    "Reflected appraisals (looking glass self) suggest that self-image is shaped by how others perceive us.",
+    "Social comparisons help individuals assess their own value by comparing themselves to others, influencing self-esteem."]],
+  ["Dimensions of Identity",[
+    "Identity dimensions include racial, national, ethnic, gender, sexual, age, social class, disability, religious, and role identities.",
+    "Personal examples illustrate how these dimensions manifest in everyday life, such as cultural pride or personal challenges."]],
+  ["Johari Window Model",[
+    "The Johari Window is a tool for understanding self-awareness and interpersonal communication, consisting of four quadrants: open, blind, hidden, and unknown.",
+    "It emphasizes the importance of feedback and self-disclosure in personal development."], "johari"]
+ ]},
+ {id:"c3", title:"Chapter 3: Perception", topics:[
+  ["Understanding Perception",[
+    "Perception is the process of interpreting sensory information to understand and respond to the environment.",
+    "It plays a crucial role in communication, as it affects how messages are sent and received."]],
+  ["Steps in the Perception Process",[
+    "The perception process involves three steps: selection (focusing on specific sensory information), organization (categorizing sensory input), and interpretation (assigning meaning).",
+    "Each step is essential for effective communication and understanding."]],
+  ["Cognitive Representation and Stereotypes",[
+    "Cognitive representation allows individuals to form mental models of the world, aiding in information processing.",
+    "Stereotypes and labels help categorize people quickly but can lead to oversimplification and bias."]],
+  ["Attribution Theory",[
+    "Attribution theory explains how individuals interpret the causes of behaviors and events, distinguishing between internal (personal traits) and external (situational factors) attributions.",
+    "Understanding attribution can improve interpersonal communication by clarifying misunderstandings."]],
+  ["Cultural Influences on Perception",[
+    "Culture significantly shapes perceptions, influencing norms and behaviors, such as greetings or personal space.",
+    "Ethnocentrism can lead to biased perceptions, where one's own culture is viewed as superior."]]
+ ]},
+ {id:"c9", title:"Chapter 9: Close Relationships", topics:[
+  ["Interpersonal Communication Defined",[
+    "Interpersonal communication involves the exchange of messages, ideas, and emotions between interdependent individuals.",
+    "It is characterized by mutual influence, where each person's communication affects the other."]],
+  ["Factors Associated with Attraction",[
+    "Attraction in close relationships is influenced by three primary factors: task attraction (shared goals), social attraction (likability), and physical attraction (appearance).",
+    "Understanding these factors can enhance relationship-building skills."]]
+ ]},
+ {id:"attr", title:"Attraction and Relationship Development", topics:[
+  ["Types of Attraction",[
+    "Attraction can be categorized into three main types: task, social, and physical.",
+    ["Task Attraction","The desire to work with someone based on their skills or abilities relevant to a task."],
+    ["Social Attraction","Influenced by personality traits; individuals are drawn to those who are kind and bubbly rather than mean."],
+    ["Physical Attraction","Based on physical appearance and how one perceives another's attractiveness."]]],
+  ["Self-Disclosure and Social Penetration Theory",[
+    ["Self-Disclosure","The act of revealing personal information to others, which can strengthen interpersonal bonds."],
+    ["Social Penetration Theory","Relationships develop through increasing levels of self-disclosure."],
+    ["Three Factors of Self-Disclosure",""],
+    {sub:[["Breadth","The variety of topics discussed."],["Depth","The intimacy level of the information shared."],["Frequency/Reciprocity","The mutual exchange of personal information between individuals."]]}]],
+  ["Uncertainty Reduction Theory (URT)",[
+    ["Purpose of URT","Explains why individuals ask questions in relationships to reduce uncertainty about each other."],
+    ["Methods of Reducing Uncertainty",""],
+    {sub:[["Checking In","Regularly confirming feelings or thoughts."],["Asking Questions","Inquiring about personal experiences or opinions."],["Showing Support","Demonstrating presence and support to build trust."]]}]],
+  ["Social Exchange and Equity Theories",[
+    ["Social Exchange Theory","Relationships are formed based on a cost-benefit analysis, where individuals seek to maximize benefits while minimizing costs."],
+    ["Equity Theory","Emphasizes fairness in relationships, asserting that benefits should be proportional to contributions from each partner."]]],
+  ["Dialectical Tensions in Relationships",[
+    ["Dialectical Tensions","Opposing forces that create challenges in relationships."],
+    ["External Tensions",""],
+    {sub:[["Seclusion-Inclusion","Balancing time spent alone versus with others."],["Reveal-Conceal","Deciding what personal information to share."],["Unique-Conventional","Navigating between being unique as a couple versus conforming to societal norms."]]},
+    ["Internal Tensions",""],
+    {sub:[["Autonomy-Connection","Balancing independence with closeness."],["Expression-Privacy","Managing the need to share versus the need for privacy."],["Change-Predictability","Balancing the desire for stability with the need for change."]]}]]
+ ]},
+ {id:"stages", title:"Stages of Relationship Development", topics:[
+  ["Knapp's Stages Model",[
+    ["Initiating","The first meeting where first impressions are crucial."],
+    ["Experimenting","Learning about each other through conversations."],
+    ["Intensifying","Developing a deeper connection and affection."],
+    ["Integrating","Establishing a shared identity as a couple."],
+    ["Bonding","Publicly affirming the relationship through commitments."],
+    ["Differentiating","Creating personal space and independence."],
+    ["Circumscribing","Limiting discussions to safer topics."],
+    ["Stagnating","Avoiding change and growth in the relationship."],
+    ["Avoiding","Actively declining interaction."],
+    ["Terminating","Ending the relationship."]]],
+  ["Comparison of Models",[
+    ["Stages Model vs. Turning Point Model",""],
+    {sub:["The stages model is linear and follows a strict path, while the turning point model is event-driven and non-linear."]},
+    ["Examples of Turning Points","Significant events such as moving in together or experiencing major life changes."]]],
+  ["Relationship Strategies",[
+    ["Strategies for Initiating, Maintaining, and Terminating Relationships",""],
+    {sub:["Effective communication and setting boundaries are crucial for healthy relationships."]},
+    ["Destructive Behaviors","Avoidance and lack of communication can harm relationships."]]],
+  ["Types of Deception",[
+    ["Instrumental Deception","Lies told to achieve a specific goal."],
+    ["Relational Deception","Misleading information that affects relationships."],
+    ["Identity Deception","Misrepresenting oneself."],
+    ["Self-Deception","Convincing oneself of falsehoods."],
+    ["Gaslighting","Manipulating someone into doubting their reality."]]]
+ ]},
+ {id:"groups", title:"Small Group Communication", topics:[
+  ["Definition and Importance",[
+    ["Small Group Communication","Involves groups of three or more individuals working towards a common goal."],
+    ["Advantages","Enhances performance in academic and professional settings, fosters collaboration, and encourages diverse perspectives."],
+    ["Disadvantages","Potential for unequal participation, feeling unheard, and interpersonal conflicts."]]],
+  ["Virtual vs. In-Person Groups",[
+    ["Differences",""],
+    {sub:["Virtual groups face unique logistical challenges and may lack the richness of face-to-face interactions."]}]],
+  ["Group Roles",[
+    ["Task Roles","Roles focused on completing tasks."],
+    {sub:[["Opinion Seeker","Gathers opinions from group members."],["Energizer","Motivates the group to enhance productivity."],["Information Giver","Provides relevant facts and insights."]]},
+    ["Relational Roles","Roles that maintain group dynamics."],
+    {sub:[["Gatekeeper","Encourages participation from all members."],["Follower","Supports the group's direction without leading."],["Standard Setter","Establishes goals and expectations."]]},
+    ["Individual Roles","Roles that may disrupt group dynamics."],
+    {sub:[["Joker","Lightens the mood but may distract."],["Blocker","Opposes ideas without constructive feedback."],["Self-Confessor","Shares personal feelings unrelated to the task."]]}]],
+  ["Leadership Theories",[
+    ["Trait Leadership Theory","Suggests leaders are born with inherent traits."],
+    ["Functional/Situational Theory","Proposes that leadership skills can be developed."],
+    ["Style Theory","Emphasizes that a leader's style impacts their effectiveness."],
+    ["Transformational Leadership Theory","Focuses on inspiring and empowering followers."],
+    ["Servant-Leadership Theory","Prioritizes serving others' needs to enhance teamwork."]]],
+  ["Effective Practices and Problem-Solving",[
+    ["Effective Small Group Practices",""],
+    {sub:["Listening to all ideas, contributing fairly, and showing interest in others' contributions."]},
+    ["Five Problem-Solving Steps",""],
+    {ol:[["Define the Problem","Clarify the issue at hand."],["Analyze the Problem","Assess details and implications."],["Brainstorm Solutions","Generate ideas without critique."],["Evaluate Solutions","Discuss the feasibility of ideas."],["Pick a Solution","Decide on the best course of action."]]}]],
+  ["Groupthink and Diversity",[
+    ["Groupthink","A phenomenon where group members prioritize consensus over critical thinking, leading to poor decision-making."],
+    ["Benefits of Diverse Groups","Diversity fosters creativity, enhances problem-solving, and allows for a broader range of perspectives."]]]
+ ]}
+];
+
+var QR = [
+ {title:"Key Terms/Concepts", list:[
+  ["Identity","Who you are and the specific characteristics that differentiate you from others."],
+  ["Reflected Appraisals (Looking Glass Self)","The concept that self-image is shaped by how others perceive us."],
+  ["Selective Attention","The process of focusing on a narrow range of sensory information to manage information overload."],
+  ["Self-Disclosure","Revealing personal information to others, which can strengthen relationships."],
+  ["Groupthink","A phenomenon where group members prioritize consensus over critical thinking, leading to poor decision-making."]]},
+ {title:"Fundamental Theories", table:{head:["Theory","Description"], rows:[
+  ["Social Penetration Theory","Suggests that self-disclosure increases intimacy in relationships through breadth and depth of shared information."],
+  ["Uncertainty Reduction Theory (URT)","Explains how individuals seek information to reduce uncertainty in interpersonal relationships."],
+  ["Attribution Theory","A framework for understanding how people interpret the causes of events and behaviors, distinguishing between internal and external attributions."],
+  ["Transformational Leadership Theory","Focuses on leaders who inspire and motivate followers to achieve their full potential."],
+  ["Servant-Leadership Theory","Emphasizes serving others' needs to enhance teamwork and personal involvement."]]}},
+ {title:"Key People", list:[
+  ["George Herbert Mead","Influential in developing the concept of the generalized other, which reflects societal norms and values."],
+  ["Irwin Altman and Dalmas Taylor","Developed the Social Penetration Theory, focusing on self-disclosure in relationships."]]},
+ {title:"Key Concepts in Close Relationships", list:[
+  ["Attraction Factors","Task, social, and physical attraction influence interpersonal relationships."],
+  ["Dialectical Tensions","Conflicts that arise in relationships, such as autonomy vs. connection and openness vs. privacy."],
+  ["Stages of Relationship Development","Includes initiating, experimenting, intensifying, integrating, bonding, differentiating, stagnating, avoiding, and terminating."]]},
+ {title:"Key Practices in Small Group Communication", list:[
+  ["Effective Practices","Listening to all ideas, completing assigned tasks, and showing interest in others' contributions."],
+  ["Problem-Solving Steps","Define the problem, analyze it, brainstorm solutions, evaluate solutions, and pick a solution."]]},
+ {title:"Facts to Memorize", list:[
+  "Johari Window: A model for self-awareness and personal development.",
+  "Social Penetration Theory: Involves breadth, depth, and frequency/reciprocity in self-disclosure.",
+  "Uncertainty Reduction Theory: Explains the need for asking questions in relationships.",
+  "Groupthink: A phenomenon where group members conform to avoid conflict."]},
+ {title:"Reference Information", list:[
+  "Identity dimensions: racial, national, ethnic, gender, sexual, age, social class, disability, religious, and role.",
+  "Types of deception: instrumental, relational, identity, self-deception, and gaslighting.",
+  "Leadership theories: Trait, Functional/Situational, Style, Transformational, and Servant-leadership."]},
+ {title:"Concept Comparisons", table:{head:["Concept","Description"], rows:[
+  ["Particular Other","Individuals whose opinions significantly influence one's identity."],
+  ["Generalized Other","The collective norms and values of the community that shape identity."],
+  ["Internal Attribution","Assigning causes of behavior to personal traits or characteristics."],
+  ["External Attribution","Assigning causes of behavior to situational factors or environment."],
+  ["Task Attraction","Attraction based on the desire to work with someone on a task."],
+  ["Social Attraction","Attraction based on personality traits and social behavior."],
+  ["Physical Attraction","Attraction based on physical appearance."]]}}
+];
+
+var DQ = [
+ {q:"How does the concept of identity encompass both fixed and dynamic elements in an individual's life?", d:"medium",
+  a:"Identity is shaped by both stable characteristics, such as race or gender, and dynamic aspects that evolve over time, influenced by personal experiences and social interactions. This duality allows individuals to maintain a core sense of self while adapting to changing circumstances and environments."},
+ {q:"In what ways do particular others and generalized others contribute to the formation of an individual's identity?", d:"medium",
+  a:"Particular others, such as close friends and family, provide direct feedback and influence specific aspects of identity through personal interactions, while generalized others represent societal norms and expectations that shape broader identity constructs. Together, they create a complex interplay that informs how individuals perceive themselves and their roles within society."},
+ {q:"What role does self-disclosure play in the development of close relationships according to social penetration theory?", d:"medium",
+  a:"Self-disclosure fosters intimacy in relationships by allowing individuals to share personal thoughts and feelings, which can deepen connections. Social penetration theory suggests that as self-disclosure increases in breadth and depth, relationships become more meaningful and robust."},
+ {q:"How do cognitive representations and schemas influence our perception of the world?", d:"hard",
+  a:"Cognitive representations and schemas help individuals organize and interpret sensory information, allowing for quicker understanding and response to their environment. These mental frameworks shape perceptions by filtering experiences through pre-existing beliefs and knowledge, which can lead to biases in how we view others and situations."},
+ {q:"Discuss the implications of Groupthink in small group communication and decision-making.", d:"hard",
+  a:"Groupthink can lead to poor decision-making as members prioritize consensus over critical evaluation of ideas, often resulting in the suppression of dissenting opinions and a lack of creativity. This phenomenon highlights the importance of fostering an open environment where diverse perspectives are encouraged to enhance group effectiveness."},
+ {q:"What are the ethical considerations surrounding the presentation of different selves in various social contexts?", d:"medium",
+  a:"Presenting different selves can be ethical when it reflects genuine aspects of identity tailored to specific contexts, promoting adaptability and social harmony. However, it raises concerns about authenticity and trust, as individuals may struggle with the discrepancies between their true selves and the personas they project."}
+];
+
+/* ---------- helpers ---------- */
+function el(tag, cls, text){ var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
+function item(li, it){
+  if(Array.isArray(it)){
+    var b=el('b','term',it[0]); li.appendChild(b);
+    if(it[1]) li.appendChild(document.createTextNode(': '+it[1])); else li.appendChild(document.createTextNode(':'));
+  } else li.appendChild(document.createTextNode(it));
+}
+function buildList(items, ordered){
+  var ul=el(ordered?'ol':'ul'), last=null;
+  items.forEach(function(it){
+    var nested=(typeof it==='object' && !Array.isArray(it)) ? it : null;
+    if(nested){
+      var host=last||ul.appendChild(el('li'));
+      host.appendChild(nested.ol ? buildList(nested.ol,true) : buildList(nested.sub));
+      return;
+    }
+    var li=el('li'); item(li,it); ul.appendChild(li); last=li;
+  });
+  return ul;
+}
+function johari(){
+  var d=el('div','johari');
+  d.setAttribute('role','img');
+  d.setAttribute('aria-label','Johari window: four quadrants, Open Self, Blind Self, Hidden Self and Unknown Self, based on what is known to oneself and to others.');
+  var h=el('div','axis'); h.appendChild(el('span')); h.appendChild(el('span',null,'Known to self')); h.appendChild(el('span',null,'Not known to self')); d.appendChild(h);
+  var w=el('div','vwrap'); var vl=el('div','vlabels'); vl.appendChild(el('div','vlabel','Known to others')); vl.appendChild(el('div','vlabel','Not known to others')); w.appendChild(vl);
+  var g=el('div','grid');
+  [['c1','Open Self','Known to you and to others'],['c2','Blind Self','Others see it, you do not'],['c3','Hidden Self','You know it, others do not'],['c4','Unknown Self','Neither you nor others know it']].forEach(function(c){
+    var cell=el('div','cell '+c[0]); cell.appendChild(el('strong',null,c[1])); cell.appendChild(el('span',null,c[2])); g.appendChild(cell);
+  });
+  w.appendChild(g); d.appendChild(w);
+  d.appendChild(el('div','cap','The Johari window sorts self-awareness by what is known to oneself and to others.'));
+  return d;
+}
+
+/* ---------- outline ---------- */
+(function(){
+  var body=document.getElementById('outlineBody'), toc=document.getElementById('toc');
+  OUTLINE.forEach(function(ch){
+    var h=el('h2',null,ch.title); h.id=ch.id; body.appendChild(h);
+    var a=el('a','chip',ch.title.replace(/^Chapter (\d+): /,'Ch. $1: ')); a.href='#'+ch.id; toc.appendChild(a);
+    ch.topics.forEach(function(t){
+      body.appendChild(el('h3',null,t[0]));
+      body.appendChild(buildList(t[1]));
+      if(t[2]==='johari') body.appendChild(johari());
+    });
+  });
+})();
+
+/* ---------- quick reference ---------- */
+(function(){
+  var qr=document.getElementById('panel-qr');
+  QR.forEach(function(s){
+    var sec=el('section'); sec.appendChild(el('h2',null,s.title));
+    if(s.list) sec.appendChild(buildList(s.list));
+    if(s.table){
+      var wrap=el('div','tblwrap'), t=el('table'), thead=el('thead'), tr=el('tr');
+      s.table.head.forEach(function(x){ var th=el('th',null,x); th.scope='col'; tr.appendChild(th); });
+      thead.appendChild(tr); t.appendChild(thead);
+      var tb=el('tbody');
+      s.table.rows.forEach(function(r){ var row=el('tr'); var c1=el('td'); c1.appendChild(el('b','term',r[0])); row.appendChild(c1); row.appendChild(el('td',null,r[1])); tb.appendChild(row); });
+      t.appendChild(tb); wrap.appendChild(t); sec.appendChild(wrap);
+    }
+    qr.appendChild(sec);
+  });
+})();
+
+/* ---------- discussion questions ---------- */
+(function(){
+  var i=0, shown=false;
+  var q=document.getElementById('dqQ'), diff=document.getElementById('dqDiff'), ans=document.getElementById('dqAns'),
+      cnt=document.getElementById('dqCount'), prev=document.getElementById('dqPrev'), next=document.getElementById('dqNext'), show=document.getElementById('dqShow');
+  function render(){
+    var d=DQ[i];
+    q.textContent=d.q; diff.textContent='Difficulty: '+d.d.charAt(0).toUpperCase()+d.d.slice(1); diff.className='diff '+d.d;
+    ans.textContent=d.a; ans.hidden=!shown; show.textContent=shown?'Hide example answer':'Show example answer'; show.setAttribute('aria-expanded',String(shown));
+    cnt.textContent=(i+1)+' of '+DQ.length; prev.disabled=i===0; next.disabled=i===DQ.length-1;
+  }
+  prev.onclick=function(){ if(i>0){i--; shown=false; render();} };
+  next.onclick=function(){ if(i<DQ.length-1){i++; shown=false; render();} };
+  show.onclick=function(){ shown=!shown; render(); };
+  render();
+})();
+
+/* ---------- flashcards (built from the quick reference) ---------- */
+var CARDS=[];
+QR.forEach(function(s){
+  if(s.list) s.list.forEach(function(x){ if(Array.isArray(x)) CARDS.push([x[0],x[1]]); });
+  if(s.table) s.table.rows.forEach(function(r){ CARDS.push([r[0],r[1]]); });
+});
+(function(){
+  var order=CARDS.map(function(_,i){return i;}), pos=0;
+  var fc=document.getElementById('fc'), f=document.getElementById('fcFront'), b=document.getElementById('fcBack'), cnt=document.getElementById('fcCount');
+  function render(){
+    var c=CARDS[order[pos]]; f.textContent=c[0]; b.textContent=c[1];
+    fc.classList.remove('flip'); cnt.textContent=(pos+1)+' / '+CARDS.length;
+    fc.setAttribute('aria-label','Flashcard '+(pos+1)+' of '+CARDS.length+'. Term: '+c[0]+'. Press to flip.');
+  }
+  function go(d){ pos=(pos+d+CARDS.length)%CARDS.length; render(); }
+  function flip(){ fc.classList.toggle('flip'); }
+  fc.onclick=flip;
+  document.getElementById('fcNext').onclick=function(){go(1)};
+  document.getElementById('fcPrev').onclick=function(){go(-1)};
+  document.getElementById('fcShuffle').onclick=function(){
+    for(var i=order.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=order[i]; order[i]=order[j]; order[j]=t; }
+    pos=0; render();
+  };
+  document.addEventListener('keydown',function(e){
+    if(document.getElementById('panel-study').hidden) return;
+    if(e.key==='ArrowRight') go(1);
+    else if(e.key==='ArrowLeft') go(-1);
+    else if(e.key===' ' && document.activeElement!==fc && !/BUTTON/.test(document.activeElement.tagName)){ e.preventDefault(); flip(); }
+  });
+  render();
+})();
+
+/* ---------- tabs ---------- */
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function select(t){
+    tabs.forEach(function(x){
+      var on=x===t; x.setAttribute('aria-selected',String(on)); x.tabIndex=on?0:-1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden=!on;
+    });
+    try{ localStorage.setItem('comm111-tab',t.id); }catch(e){}
+  }
+  tabs.forEach(function(t,i){
+    t.onclick=function(){select(t)};
+    t.onkeydown=function(e){
+      var n=null;
+      if(e.key==='ArrowRight') n=tabs[(i+1)%tabs.length];
+      if(e.key==='ArrowLeft') n=tabs[(i-1+tabs.length)%tabs.length];
+      if(n){ n.focus(); select(n); e.preventDefault(); }
+    };
+  });
+  try{ var saved=localStorage.getItem('comm111-tab'); var t=tabs.filter(function(x){return x.id===saved})[0]; if(t) select(t); }catch(e){}
+})();
+
+/* ---------- theme ---------- */
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  function isDark(){
+    var t=root.getAttribute('data-theme');
+    if(t) return t==='dark';
+    return window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function label(){ btn.textContent=isDark()?'Light mode':'Dark mode'; }
+  try{ var s=localStorage.getItem('comm111-theme'); if(s) root.setAttribute('data-theme',s); }catch(e){}
+  btn.onclick=function(){
+    var n=isDark()?'light':'dark'; root.setAttribute('data-theme',n);
+    try{ localStorage.setItem('comm111-theme',n); }catch(e){}
+    label();
+  };
+  label();
+})();
+</script>
+</body>
+</html>
